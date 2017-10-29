@@ -1,26 +1,10 @@
-package hu.elte.alkfelj.dataman.dataman.Entity;
+package hu.elte.alkfelj.dataman.dataman.Entity.Request;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
-public class File {
-    @GeneratedValue
-    @Id
-    private Long ID;
+public class AddFileRequest {
     private String path;
     private int editLevel;
     private int viewLevel;
     private int owner;
-
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
 
     public String getPath() {
         return path;
