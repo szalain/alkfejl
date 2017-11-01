@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Bejelentkezés</title>
+</head>
+<body>
+<h1>Bejelentkezés</h1>
+<h2 th:if="${loginFailed}">Hibás felhasználónév/jelszó!</h2>
+<form action="#" th:action="@{/login}" th:object="${user}" method="post">
+    <div id="username">
+        <label for="username">Felhasználónév:</label>
+        <input type="text" name="username" placeholder="Felhasználónév" th:field="*{username}" />
+    </div>
+    <div id="password">
+        <label for="password">Jelszó:</label>
+        <input type="password" name="password" placeholder="Jelszó" th:field="*{password}" />
+    </div>
+    <input type="submit" value="Belépés" />
+    <button type="reset">Vissza</button>
+</form>
+</body>
+</html>
