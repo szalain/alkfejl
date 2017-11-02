@@ -5,9 +5,7 @@ import alkfejl.bead.fileshare.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class FileController {
@@ -22,13 +20,22 @@ public class FileController {
 
     @PostMapping("/upload")
     public String upload(@ModelAttribute File file) {
-        fileService.uploadFile(file);
+        if(!fileService.exists(file.getPath())){
+            fileService.uploadFile(file);
+            return "redirect:/uploadSuccess";
+        } else {
+            return "redirect:/uploadFailed";
+        }
+    }
+
+    @RequestMapping("/uploadSuccess")
+    public String uploadSuccess() {
         return "uploadSuccess";
     }
-    @GetMapping("/uploadSuccess")
-    public String uploadSuccess(Model model) {
-        model.addAttribute("uploadSuccess", new File());
-        return "upload";
+
+    @RequestMapping("/uploadFailed")
+    public String uploadFailed() {
+        return "uploadFailed";
     }
 
 }
