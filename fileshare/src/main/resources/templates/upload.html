@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feltöltés</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Fájl feltöltése</h1>
+<form action="#" th:action="@{/upload}" th:object="${upload}" method="post">
+    <div id="path">
+        <label for="path">Path:</label>
+        <input type="text" name="path" placeholder="Path" th:field="*{path}" />
+    </div>
+    <div id="viewLevel">
+        <label for="viewLevel">viewLevel:</label>
+        <input type="text" name="viewLevel" placeholder="viewLevel" th:field="*{viewLevel}" />
+    </div>
+    <div id="editLevel">
+        <label for="editLevel">editLevel:</label>
+        <input type="text" name="editLevel" placeholder="editLevel" th:field="*{editLevel}" />
+    </div>
+    <div id="owner">
+        <label for="owner">owner:</label>
+        <input type="text" name="owner" placeholder="owner" th:field="*{owner}" />
+    </div>
+    <input type="submit" value="Feltöltés" />
+</form>
+</body>
+</html>
