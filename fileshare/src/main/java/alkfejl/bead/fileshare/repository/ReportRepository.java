@@ -1,12 +1,13 @@
 package alkfejl.bead.fileshare.repository;
 
-import alkfejl.bead.fileshare.model.File;
+import alkfejl.bead.fileshare.model.Report;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface FileRepository extends CrudRepository<File, Long> {
-    Optional<File> findByPath(String path);
+public interface ReportRepository extends CrudRepository<Report, Long> {
+
+    Report findById(Long id);
 }
