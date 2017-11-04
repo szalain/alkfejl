@@ -18,7 +18,7 @@ public class FileController {
         return "upload";
     }
 
-    @PostMapping("/upload")
+   /* @PostMapping("/upload")
     public String upload(@ModelAttribute File file) {
         if(!fileService.exists(file.getPath())){
             fileService.uploadFile(file);
@@ -26,7 +26,7 @@ public class FileController {
         } else {
             return "redirect:/uploadFailed";
         }
-    }
+    }*/
 
     @RequestMapping("/uploadSuccess")
     public String uploadSuccess() {
