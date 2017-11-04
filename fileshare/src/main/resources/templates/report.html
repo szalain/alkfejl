@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jelentés</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Felhasználó jelentése</h1>
+<form action="#" th:action="@{/report}" th:object="${report}" method="post">
+    <div id="reported">
+        <label for="reported">Felhasználó:</label>
+        <input type="text" name="reported" placeholder="Felhasználó" th:field="*{reported.username}" />
+    </div>
+    <div id="description">
+        <!--<label for="description">Leírás:</label>
+        <input type="text" name="description" placeholder="Leírás" th:field="*{description}" />-->
+        <label for="description">Leírás:</label>
+       <textarea rows="4" cols="50" th:field="*{description}" />
+    </div>
+    <input type="submit" value="Küldés" />
+    <button type="reset">Törlés</button>
+    <h2 th:if="${reportFailed}">A felhasználó nem létezik!</h2>
+</form>
+</body>
+</html>

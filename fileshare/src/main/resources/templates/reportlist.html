@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Jelentéslista</title>
+</head>
+<body>
+<!--<ul>
+    <h1>Jelentéslista</h1>
+    <li th:each="report : ${reports}">
+        <span th:text="${report.reported.getUsername()}"></span>
+        (<span th:text="${report.description}"></span>)
+    </li>
+</ul>-->
+<table>
+<tr>
+    <th>Felhasználó</th>
+    <th>Leírás</th>
+</tr>
+<tr th:each="report : ${reports}">
+    <td th:text="${report.reported.getUsername()}"></td>
+    <td th:text="${report.description}"></td>
+    <td><form action="#" th:action="@{reportlist/ban}">
+        <input type="hidden" name="id" th:value="${report.reported.id}"/>
+        <button type="submit" id="banButton">Kitiltás</button>
+    </form></td>
+    <td><form action="#" th:action="@{reportlist/delete}">
+        <input type="hidden" name="id" th:value="${report.id}"/>
+        <button type="submit" id="deleteButton">Jelentés törlése</button>
+    </form></td>
+</tr>
+</table>
+</body>
+</html>

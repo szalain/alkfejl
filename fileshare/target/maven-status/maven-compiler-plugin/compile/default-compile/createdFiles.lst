@@ -1,2 +1,15 @@
+alkfejl\bead\fileshare\repository\ReportRepository.class
+alkfejl\bead\fileshare\controller\ReportController.class
+alkfejl\bead\fileshare\model\Report.class
+alkfejl\bead\fileshare\repository\FileRepository.class
 alkfejl\bead\fileshare\model\User$Role.class
+alkfejl\bead\fileshare\model\BaseEntity.class
 alkfejl\bead\fileshare\model\User.class
+alkfejl\bead\fileshare\repository\UserRepository.class
+alkfejl\bead\fileshare\controller\FileController.class
+alkfejl\bead\fileshare\service\ReportService.class
+alkfejl\bead\fileshare\model\File.class
+alkfejl\bead\fileshare\service\UserService.class
+alkfejl\bead\fileshare\controller\UserController.class
+alkfejl\bead\fileshare\FileshareApplication.class
+alkfejl\bead\fileshare\service\FileService.class
