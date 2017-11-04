@@ -21,6 +21,8 @@
     </div>
     <input type="submit" value="Regisztráció" />
     <button type="reset">Vissza</button>
+    <h2 th:if="${blankData}">Minden mezőt ki kell tölteni!</h2>
+    <h2 th:if="${registerFailed}">A felhasználónév/email foglalt!</h2>
 </form>
 </body>
 </html>

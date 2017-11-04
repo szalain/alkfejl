@@ -31,7 +31,7 @@ public class User extends BaseEntity {
     private boolean banned = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Role role;
 
     public enum Role {
