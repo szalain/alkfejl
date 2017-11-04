@@ -1,0 +1,17 @@
+    WARNING: The character £ (U+00a3) exists in the entry for VK_3, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: £ (U+00a3) is already defined more than once on the keyboard (on VK_4, ShiftState 'Ctl+Alt' and VK_3, ShiftState 'Ctl+Alt').
+    WARNING: The character ∂ (U+2202) exists in the entry for VK_D, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: The character ķ (U+0137) exists in the entry for VK_H, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: The character ∆ (U+2206) exists in the entry for VK_J, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: Ż (U+017b) is already defined more than once on the keyboard (on VK_L, ShiftState 'Ctl+Alt' and VK_K, ShiftState 'Ctl+Alt').
+    WARNING: The character Ķ (U+0136) exists in the entry for VK_M, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: The character Ņ (U+0145) exists in the entry for VK_O, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: The character Ļ (U+013b) exists in the entry for VK_P, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: The character ≠ (U+2260) exists in the entry for VK_OEM_PLUS, ShiftState 'Ctl+Alt' of the layout table and is not in the default system code page (1250) of the Hungarian (Hungary) language you specified. This may cause compatibility problems in non-Unicode applications.
+    WARNING: – (U+2013) is already defined more than once on the keyboard (on VK_OEM_MINUS, ShiftState 'Ctl+Alt' and VK_OEM_COMMA, ShiftState 'Ctl+Alt').
+    WARNING: Ļ (U+013b) is already defined more than once on the keyboard (on VK_OEM_4, ShiftState 'Ctl+Alt' and VK_P, ShiftState 'Ctl+Alt').
+    WARNING: ~ (U+007e) is already defined more than once on the keyboard (on VK_OEM_6, ShiftState 'Ctl+Alt' and VK_N, ShiftState 'Ctl+Alt').
+    WARNING: ^ (U+005e) is already defined more than once on the keyboard (on VK_OEM_7, ShiftState 'Ctl+Alt' and VK_I, ShiftState 'Ctl+Alt').
+    WARNING: 'í' defined on OEM_102 (Base) but not defined elsewhere. This key may not be present on all keyboards.
+    WARNING: 'Í' defined on OEM_102 (Shift) but not defined elsewhere. This key may not be present on all keyboards.
+    WARNING: '|' defined on OEM_102 (Ctl+Alt) but not defined elsewhere. This key may not be present on all keyboards.

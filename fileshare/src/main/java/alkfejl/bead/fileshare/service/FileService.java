@@ -16,7 +16,8 @@ public class FileService {
         fileRepository.save(file);
     }
 
-    public boolean exists(String path) {
+  /*  public boolean exists(String path) {
         return fileRepository.findByPath(path).isPresent();
     }
+    */
 }
