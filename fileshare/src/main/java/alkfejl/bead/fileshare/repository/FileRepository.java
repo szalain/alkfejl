@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface FileRepository extends CrudRepository<File, Long> {
     Optional<File> findByFullPath(String path);
+    Iterable<File> findByPath(String path);
 }

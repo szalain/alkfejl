@@ -20,7 +20,7 @@ public class File extends BaseEntity {
     @Column(nullable = false)
     private String path;
 
-    @Column(nullable = false)
+    @Column
     private String fileName;
 
     @Column(nullable = false)
@@ -31,6 +31,9 @@ public class File extends BaseEntity {
 
     @Column(nullable = false)
     private int owner;
+
+    @Column
+    private boolean isDir;
 
     public String getFullPath() {
         return fullPath;
@@ -80,8 +83,29 @@ public class File extends BaseEntity {
         this.fileName = fileName;
     }
 
+    public boolean isDir() {
+        return isDir;
+    }
+
+    public void setDir(boolean dir) {
+        isDir = dir;
+    }
+
     @Override
     public String toString(){
-        return this.fullPath;
+        if(!(this.isDir)) {
+            return this.fileName;
+        } else {
+            return this.fileName;
+        }
+    }
+
+    public String URL(){
+        if(!(this.isDir)) {
+            return "/uploadFile/files" + this.fullPath;
+
+        } else {
+            return "/uploadFile/getallfiles"+this.fullPath;
+        }
     }
 }

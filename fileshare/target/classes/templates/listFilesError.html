@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>List All Uploaded Files</h2>
+
+<h3>
+    <span th:text="${message}"></span>
+    <span th:text="'&#34;'+${location}+'&#34;'" />
+</h3>
+
+<div>
+    <a href="/uploadFile/getallfiles/">Back to root!</a>
+</div>
+
+</body>
+</html>

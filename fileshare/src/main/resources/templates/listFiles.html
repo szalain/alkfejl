@@ -1,16 +1,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <h2>List All Uploaded Files</h2>
+
+<h3>
+    <span>Current directory: </span>
+    <span th:text="'&#34;'+${location}+'&#34;'" />
+</h3>
+
 <div>
     <ul>
         <li th:each="file : ${files}">
-            <a th:href="${file}" th:text="${file}" />
+            <a th:href="${file.URL()}" th:text="${file}" />
         </li>
     </ul>
 </div>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+<h3>Upload a file:</h3>
+<form method="POST" enctype="multipart/form-data" action="/uploadFile">
+    <table>
+        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+        <tr><td>Path:</td><td><input type="text" name="path" th:value="${location}" readonly="readonly" /></td></tr>
+        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+    </table>
+</form>
+
+<h3>Create a directory:</h3>
+<form method="POST" enctype="multipart/form-data" action="/uploadFile/createDir">
+    <table>
+        <tr><td>Folder name:</td><td><input type="text" name="name" /></td></tr>
+        <tr><td>Location:</td><td><input type="text" name="location" th:value="${location}" readonly="readonly" /></td></tr>
+        <tr><td></td><td><input type="submit" value="Create" /></td></tr>
+    </table>
+</form>
 <div>
     <h3 th:text="${totalFiles}"/>
-    <a href="/uploadFile">Back to UploadForm!</a>
+    <a href="/uploadFile/getallfiles/">Back to root!</a>
 </div>
 
 </body>

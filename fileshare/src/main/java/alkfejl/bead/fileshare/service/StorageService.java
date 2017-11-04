@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import alkfejl.bead.fileshare.model.File;
 import alkfejl.bead.fileshare.repository.FileRepository;
@@ -27,7 +28,7 @@ public class StorageService {
     @Autowired
     private FileRepository fileRepository;
 
-    public void store(MultipartFile file, String path){
+    public void store(MultipartFile file, String path) throws RuntimeException {
         try {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             File virtualFile = new File();
@@ -37,8 +38,29 @@ public class StorageService {
             virtualFile.setOwner(0);
             virtualFile.setViewLevel(0);
             virtualFile.setFullPath(path+file.getOriginalFilename());
+            virtualFile.setDir(false);
             fileRepository.save(virtualFile);
-            Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling("10"));
+            String newName = fileRepository.findByFullPath(path+file.getOriginalFilename()).get().getId().toString();
+            Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
+        } catch (IllegalStateException i) {
+            throw new RuntimeException("File is too big!");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("FAIL!");
+        }
+    }
+
+    public void store(String location, String name){
+        try {
+            File virtualFile = new File();
+            virtualFile.setFileName(name+"/");
+            virtualFile.setPath(location);
+            virtualFile.setEditLevel(0);
+            virtualFile.setOwner(0);
+            virtualFile.setViewLevel(0);
+            virtualFile.setFullPath(location+name+"/");
+            virtualFile.setDir(true);
+            fileRepository.save(virtualFile);
         } catch (Exception e) {
             throw new RuntimeException("FAIL!");
         }
@@ -74,7 +96,16 @@ public class StorageService {
         return fileRepository.findAll();
     }
 
+    public boolean isDirPresent(String fullPath) {
+        return fileRepository.findByFullPath(fullPath).isPresent();
+    }
+
     public String findID(String fullPath) {
-        return fileRepository.findByFullPath(fullPath).get().getId().toString();
+        String s = fileRepository.findByFullPath(fullPath).get().getId().toString();
+        return s;
+    }
+
+    public Iterable<File> findAllByPath(String path) {
+        return fileRepository.findByPath(path);
     }
 }

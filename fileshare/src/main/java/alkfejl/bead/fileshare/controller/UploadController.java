@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -34,40 +36,74 @@ public class UploadController {
 
     @PostMapping("")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("path") String path, Model model) {
+        boolean success=false;
         try {
+            if(file.getSize()<500000) {
             storageService.store(file, path);
-            model.addAttribute("message", "You successfully uploaded " + path + file.getOriginalFilename() + "!");
+            success=true;
             files.add(file.getOriginalFilename());
-        } catch (Exception e) {
+            } else {
+                throw new IllegalStateException();
+            }
+        } catch (IllegalStateException i) {
+            return "fileTooBig";
+        }
+        catch (Exception e) {
             model.addAttribute("message", "FAIL to upload " + file.getOriginalFilename() + "!");
         }
-        return "uploadForm";
+        //String substring = path.substring(0, path.length() - 1);
+        return "redirect:/uploadFile/getallfiles" + path + "?success=" + success;
     }
 
-/*    @GetMapping("getallfiles")
-    public String getListFiles(Model model) {
-        model.addAttribute("files",
-                files.stream()
-                        .map(fileName -> MvcUriComponentsBuilder
-                                .fromMethodName(UploadController.class, "getFile", fileName).build().toString())
-                        .collect(Collectors.toList()));
-        model.addAttribute("totalFiles", "TotalFiles: " + files.size());
-        return "listFiles";
+    @PostMapping("createDir")
+    public String handleFileUpload(@RequestParam("name") String name, @RequestParam("location") String location, Model model) {
+        try {
+            storageService.store(location, name);
+            model.addAttribute("message", "You successfully uploaded " + name + "!");
+        } catch (Exception e) {
+            model.addAttribute("message", "FAIL to create " + name + "!");
+        }
+        //String substring = location.substring(0, location.length() - 1);
+        return "redirect:/uploadFile/getallfiles" + location;
     }
-*/
-@GetMapping("getallfiles")
-public String getListFiles(Model model) {
-    Iterable<File> f = storageService.findAll();
-    model.addAttribute("files", f);
-    return "listFiles";
-}
 
-    @GetMapping("files/{fullPath}")
+    @RequestMapping("getallfiles/**")
+    public String getListFiles(HttpServletRequest request, @RequestParam(value = "success", required = false) String success, Model model) {
+        String value="Some kind of error!";
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/uploadFile/getallfiles", "");
+        //restOfTheUrl = "/" + restOfTheUrl.substring(1, restOfTheUrl.length());
+        if(storageService.isDirPresent(restOfTheUrl)) {
+            if ("true".equals(success)) {
+                model.addAttribute("message", "You successfully uploaded the file!");
+            } else if (success!=null) {
+                model.addAttribute("message", "Upload FAILED!");
+            }
+            Iterable<File> f = storageService.findAllByPath(restOfTheUrl);
+            model.addAttribute("files", f);
+            model.addAttribute("location", (restOfTheUrl));
+            return "listFiles";
+        } else {
+            value="This path doesn't exist: ";
+            model.addAttribute("message", value);
+            model.addAttribute("location", (restOfTheUrl));
+            return "listFilesError";
+        }
+
+    }
+
+    @GetMapping("files/**")
     @ResponseBody
-    public ResponseEntity<Resource> getFile(@PathVariable String fullPath) {
-        Resource file = storageService.loadFile(storageService.findID(fullPath));
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+    public ResponseEntity<Resource> getFile(HttpServletRequest request, Model model) {
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/uploadFile/files", "");
+        Resource file = storageService.loadFile(storageService.findID(restOfTheUrl));
+        restOfTheUrl = restOfTheUrl.replaceAll(".*/", "");
+        ResponseEntity RE = ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + restOfTheUrl + "\"")
                 .body(file);
+
+        return RE;
     }
+
 }
