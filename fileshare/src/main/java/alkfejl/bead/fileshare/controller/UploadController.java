@@ -1,9 +1,12 @@
 package alkfejl.bead.fileshare.controller;
 
+import alkfejl.bead.fileshare.model.Comment;
 import alkfejl.bead.fileshare.model.File;
+import alkfejl.bead.fileshare.service.CommentService;
 import alkfejl.bead.fileshare.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +23,10 @@ public class UploadController {
 
     @Autowired
     UploadService storageService;
-    
+
+    @Autowired
+    CommentService commentService;
+
     @RequestMapping("/**")
     public String getListFiles(HttpServletRequest request, @RequestParam(value = "success", required = false) String success, Model model) {
         String value="Some kind of error!";
@@ -33,7 +39,9 @@ public class UploadController {
                 model.addAttribute("message", "Upload FAILED!");
             }
             Iterable<File> f = storageService.findAllByPath(restOfTheUrl);
+            Iterable<Comment> c = commentService.listComments();
             model.addAttribute("files", f);
+            model.addAttribute("comments", c);
             model.addAttribute("location", (restOfTheUrl));
             return "listFiles";
         } else {

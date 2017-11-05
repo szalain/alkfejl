@@ -11,6 +11,20 @@
     <ul>
         <li th:each="file : ${files}">
             <a th:href="${file.URL()}" th:text="${file}" />
+            <table>
+                <tr th:each="comment: ${comments}" th:if="${comment.commentedFile.id == file.id}">
+                    <td><span th:text="${comment.date}+': '" /><span th:text="${comment.user.username}" /><br /><span th:text="${comment.text}" /></td>
+                </tr>
+            </table>
+            <form method="POST" action="/comment">
+                <table>
+                    <tr><td>Comment:</td><td><textarea name="commentText" th:text="${commentText}" > </textarea>
+                        <input type="hidden" name="fullPath" th:value="${file.fullPath}" />
+                        <input type="hidden" name="location" th:value="${location}" /></td></tr>
+
+                    <tr><td></td><td><input type="submit" value="Comment" /></td></tr>
+                </table>
+            </form>
         </li>
     </ul>
 </div>

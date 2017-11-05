@@ -52,4 +52,5 @@ public class File extends BaseEntity {
             return "/uploadFiles"+this.fullPath;
         }
     }
+
 }
