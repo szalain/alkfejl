@@ -19,7 +19,7 @@
     <h2 th:text="${message}"/>
 </div>
 <h3>Upload a file:</h3>
-<form method="POST" enctype="multipart/form-data" action="/uploadFile">
+<form method="POST" enctype="multipart/form-data" action="/uploadFiles/upload">
     <table>
         <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
         <tr><td>Path:</td><td><input type="text" name="path" th:value="${location}" readonly="readonly" /></td></tr>
@@ -28,7 +28,7 @@
 </form>
 
 <h3>Create a directory:</h3>
-<form method="POST" enctype="multipart/form-data" action="/uploadFile/createDir">
+<form method="POST" enctype="multipart/form-data" action="/uploadFiles/createDir">
     <table>
         <tr><td>Folder name:</td><td><input type="text" name="name" /></td></tr>
         <tr><td>Location:</td><td><input type="text" name="location" th:value="${location}" readonly="readonly" /></td></tr>
@@ -37,7 +37,7 @@
 </form>
 <div>
     <h3 th:text="${totalFiles}"/>
-    <a href="/uploadFile/getallfiles/">Back to root!</a>
+    <a href="/uploadFiles/">Back to root!</a>
 </div>
 
 </body>

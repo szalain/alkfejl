@@ -5,7 +5,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 import alkfejl.bead.fileshare.model.File;
 import alkfejl.bead.fileshare.repository.FileRepository;
@@ -20,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
-public class StorageService {
+public class UploadService {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private final Path rootLocation = Paths.get("upload-dir");
@@ -42,10 +41,7 @@ public class StorageService {
             fileRepository.save(virtualFile);
             String newName = fileRepository.findByFullPath(path+file.getOriginalFilename()).get().getId().toString();
             Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
-        } catch (IllegalStateException i) {
-            throw new RuntimeException("File is too big!");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("FAIL!");
         }
     }
