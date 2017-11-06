@@ -30,5 +30,28 @@ Fájlmegosztó webes alkalmazás, melyre fel lehet tölteni fájlokat, valamint 
 - Adott fájl(ok)hoz jogosultságot kapott felhasználó: A felhasználó az admin döntése alapján az alábbi hozzáféréseket kaphatja meg az adott fájl(ok)hoz: hozzáférés, átnevezés, tartalommódosítás/törlés, áthelyezés (más mappába).
 - Vendég: Csak publikus fájlok letöltésére van jogosultsága.
 
+# Backend
+
+## Fejlesztői környezet, használt technológiák
+Az alkalmazás backendje egy Maven projektként kerül megvalósításra a 2017.2.5-ös verziójú IntelliJ IDEA fejlesztőkörnyezet használatával.
+A gyorsabb és hatékonyabb fejlesztés érdekében a következő függőségek (dependency) lettek használva a projektben:
+- JPA
+- DevTools
+- Lombok
+- Thymeleaf
+- Web
+- H2
+
+A backend fejlesztése Java programozási nyelven történik a Java Spring keretrendszerben, a funkciók láthatóságát segítő sablonok HTML-ben lettek megvalósítva, az alkalmazás mögötti adatbázis a H2.
+
+## Könyvtárstruktúra
+A projekt könyvtárstruktúrája 5 fő részre bontható:
+- Model: Az adatbázis táblái és mezői.
+- Repository: Az adatbázis tábláinak lekérdező műveleteit tárolja.
+- Service: Az adatbázis elemeihez létrehozott műveletek.
+- Controller: A projekt végpontjait kezeli.
+- Templates: A végpontokat bemutató HTML sablonok.
+
+![könyvtárstruktúra](docs/images/konyvtar.png)
 ## Az adatbázis struktúrája
 ![adatbázis](docs/images/adatb.png)
