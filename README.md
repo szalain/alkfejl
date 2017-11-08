@@ -54,4 +54,4 @@ A projekt könyvtárstruktúrája 5 fő részre bontható:
 
 ![könyvtárstruktúra](docs/images/konyvtar.png)
 ## Az adatbázis struktúrája
-![adatbázis](docs/images/adatb.png)
+![adatbázis](docs/images/adatb2.png)
