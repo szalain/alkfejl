@@ -53,5 +53,31 @@ A projekt könyvtárstruktúrája 5 fő részre bontható:
 - Templates: A végpontokat bemutató HTML sablonok.
 
 ![könyvtárstruktúra](docs/images/konyvtar.png)
+
+## Végpontok
+User:
+- GET /login
+- GET /logout
+- GET /index
+- GET /register
+- POST /login
+- POST /register
+
+File/Upload:
+- GET /uploadFiles/:path/files
+- POST /uploadFiles/:path/upload
+- POST /uploadFiles/:path/createDir
+
+Report:
+- GET /report
+- GET /reportlist
+- GET /reportlist/ban
+- GET /reportlist/delete
+- POST /report
+
+Comment:
+- GET /commentlist
+- POST /comment
+
 ## Az adatbázis struktúrája
 ![adatbázis](docs/images/adatb2.png)
