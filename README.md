@@ -79,5 +79,9 @@ Comment:
 - GET /commentlist
 - POST /comment
 
+A /register végpont működésének ábrázolása szekvenciadiagrammal (vendégként, helyes adatokat megadva):
+
+![Register végpont szekvenciadiagramja](docs/images/seqdiag.png)
+
 ## Az adatbázis struktúrája
 ![adatbázis](docs/images/adatb2.png)
