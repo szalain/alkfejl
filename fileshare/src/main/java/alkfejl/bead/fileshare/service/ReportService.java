@@ -10,8 +10,9 @@ public class ReportService {
     @Autowired
     private ReportRepository reportRepository;
 
-    public void createReport(Report report) {
+    public Report createReport(Report report) {
         reportRepository.save(report);
+        return report;
     }
 
     public Iterable<Report> listReports() {
