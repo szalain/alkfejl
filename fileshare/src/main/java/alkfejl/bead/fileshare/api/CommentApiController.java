@@ -18,6 +18,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 
 import static alkfejl.bead.fileshare.model.User.Role.ADMIN;
 import static alkfejl.bead.fileshare.model.User.Role.MOD;
@@ -67,6 +68,24 @@ public class CommentApiController {
             c = commentService.listCommentsByFile(restOfTheUrl);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return ResponseEntity.ok(c);
+    }
+
+    @RequestMapping(value = "/api/showFile/**/comments/{id}", method =RequestMethod.DELETE)
+    public ResponseEntity deleteCommentById(HttpServletRequest request, @PathVariable Long id) {
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
+        restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-9);
+        Iterable<Comment> c = null;
+        try {
+            commentService.deleteCommentById(id);
+        } catch (UserNotValidException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(c);
     }

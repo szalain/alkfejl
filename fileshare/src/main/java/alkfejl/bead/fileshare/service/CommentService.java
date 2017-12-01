@@ -9,10 +9,13 @@ import alkfejl.bead.fileshare.repository.UserRepository;
 import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
@@ -53,6 +56,21 @@ public class CommentService {
             return comments;
         }
         throw new FileNotFoundException("No such file!");
+    }
+
+    public void deleteCommentById(Long id) throws Exception {
+        User user = userService.getUser();
+       if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
+            throw new UserNotValidException("User is not valid or is banned!");
+        }
+        if(!commentRepository.findCommentById(id).isPresent())
+            throw new NoSuchElementException("There is no comment with that ID!");
+        if(commentRepository.findById(id).getUser().getId()==user.getId()) {
+            commentRepository.deleteCommentById(id);
+        } else {
+           throw new UserNotValidException("Comment is not created by current user!");
+        }
+
     }
 
     /*

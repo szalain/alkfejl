@@ -61,7 +61,6 @@ public class UploadService {
             if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
                 throw new UserNotValidException();
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             File virtualFile = new File();
             if(!this.isDirPresent(path)) {
                 throw new FileNotFoundException("No such directory!");
@@ -78,8 +77,8 @@ public class UploadService {
             virtualFile.setDir(false);
             fileRepository.save(virtualFile);
             String newName = fileRepository.findByFullPath(path+file.getOriginalFilename()).get().getId().toString();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
-
     }
 
     public void store(String location, String name) throws Exception {
