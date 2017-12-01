@@ -6,18 +6,25 @@ import alkfejl.bead.fileshare.model.User;
 import alkfejl.bead.fileshare.service.CommentService;
 import alkfejl.bead.fileshare.service.UserService;
 import alkfejl.bead.fileshare.service.annotations.Role;
+import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
+
+import java.io.FileNotFoundException;
 
 import static alkfejl.bead.fileshare.model.User.Role.ADMIN;
 import static alkfejl.bead.fileshare.model.User.Role.MOD;
 import static alkfejl.bead.fileshare.model.User.Role.USER;
 
-@Controller
-@RequestMapping("va")
-public class CommentController {
+@RestController
+public class CommentApiController {
 
     @Autowired
     private CommentService commentService;
@@ -32,14 +39,21 @@ public class CommentController {
     }*/
 
     //@Role({ADMIN, MOD, USER})
-    @PostMapping("/comment")
-    public String report(@RequestParam("commentText") String commentText, @RequestParam("fullPath") String fullPath, @RequestParam("location") String location) {
+    @RequestMapping(value="/api/showFile/**/comment", method = RequestMethod.POST)
+    public ResponseEntity report(HttpServletRequest request, @RequestParam("comment") String commentText) {
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
+        restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-8);
         try {
-            commentService.createComment(commentText, fullPath);
+            commentService.createComment(commentText, restOfTheUrl);
+            return ResponseEntity.ok().build();
+        } catch (UserNotValidException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
+        } catch (FileNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
-        return "redirect:/uploadFiles"+location;
     }
 
     @Role({ADMIN, MOD, USER})

@@ -51,4 +51,8 @@ public class UserApiController {
     public ResponseEntity<User> register(@RequestBody User user) {
         return ResponseEntity.ok(userService.register(user));
     }
+
+    public UserService getUserService() {
+        return userService;
+    }
 }

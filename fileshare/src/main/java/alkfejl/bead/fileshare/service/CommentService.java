@@ -2,11 +2,15 @@ package alkfejl.bead.fileshare.service;
 
 import alkfejl.bead.fileshare.model.Comment;
 import alkfejl.bead.fileshare.model.File;
+import alkfejl.bead.fileshare.model.User;
 import alkfejl.bead.fileshare.repository.CommentRepository;
 import alkfejl.bead.fileshare.repository.FileRepository;
 import alkfejl.bead.fileshare.repository.UserRepository;
+import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.FileNotFoundException;
 
 @Service
 public class CommentService {
@@ -19,10 +23,20 @@ public class CommentService {
     @Autowired
     private FileRepository fileRepository;
 
-    public void createComment(String commentText, String fullPath) {
+    @Autowired
+    private UserService userService;
+
+    public void createComment(String commentText, String fullPath) throws Exception {
+        User user = userService.getUser();
+        if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
+            throw new UserNotValidException();
+        }
+        if (!fileRepository.findByFullPath(fullPath).isPresent()) {
+            throw new FileNotFoundException("File not found!");
+        }
         Comment comment = new Comment();
         comment.setText(commentText);
-        comment.setUser(userRepository.findById(0l));
+        comment.setUser(user);
         comment.setCommentedFile(fileRepository.findByFullPath(fullPath).get());
         commentRepository.save(comment);
     }
@@ -30,6 +44,15 @@ public class CommentService {
     public Iterable<Comment> listComments() {
 
         return commentRepository.findAll();
+    }
+
+    public Iterable<Comment> listCommentsByFile(String fullPath) throws Exception {
+        if(fileRepository.findByFullPath(fullPath).isPresent()) {
+            Long id = fileRepository.findByFullPath(fullPath).get().getId();
+            Iterable<Comment> comments = commentRepository.findAllByCommentedFileId(id);
+            return comments;
+        }
+        throw new FileNotFoundException("No such file!");
     }
 
     /*

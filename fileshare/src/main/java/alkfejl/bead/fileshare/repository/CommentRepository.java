@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-    Iterable<Comment> findAllById(Long id);
+    Iterable<Comment> findAllByCommentedFileId(Long id);
 }

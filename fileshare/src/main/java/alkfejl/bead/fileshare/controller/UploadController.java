@@ -1,9 +1,11 @@
 package alkfejl.bead.fileshare.controller;
 
+import alkfejl.bead.fileshare.api.UserApiController;
 import alkfejl.bead.fileshare.model.Comment;
 import alkfejl.bead.fileshare.model.File;
 import alkfejl.bead.fileshare.service.CommentService;
 import alkfejl.bead.fileshare.service.UploadService;
+import alkfejl.bead.fileshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.Query;
@@ -27,6 +29,12 @@ public class UploadController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    UserApiController userApiController;
+
     @RequestMapping("/**")
     public String getListFiles(HttpServletRequest request, @RequestParam(value = "success", required = false) String success, Model model) {
         String value="Some kind of error!";
@@ -38,7 +46,12 @@ public class UploadController {
             } else if (success!=null) {
                 model.addAttribute("message", "Upload FAILED!");
             }
-            Iterable<File> f = storageService.findAllByPath(restOfTheUrl);
+            Iterable<File> f = null;
+            try {
+                f = storageService.findAllByPath(restOfTheUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Iterable<Comment> c = commentService.listComments();
             model.addAttribute("files", f);
             model.addAttribute("comments", c);
@@ -80,7 +93,12 @@ public class UploadController {
     public ResponseEntity<Resource> getFile(HttpServletRequest request, Model model) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         restOfTheUrl = restOfTheUrl.replaceAll("/uploadFiles/files", "");
-        Resource file = storageService.loadFile(storageService.findID(restOfTheUrl));
+        Resource file = null;
+        try {
+            file = storageService.loadFile(storageService.findID(restOfTheUrl));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         restOfTheUrl = restOfTheUrl.replaceAll(".*/", "");
 
         return ResponseEntity.ok()

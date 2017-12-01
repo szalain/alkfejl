@@ -29,8 +29,9 @@ public class File extends BaseEntity {
     @Column(nullable = false)
     private int viewLevel;
 
-    @Column(nullable = false)
-    private int owner;
+    @JoinColumn(nullable = false)
+    @ManyToOne(targetEntity = User.class)
+    private User owner;
 
     @Column
     private boolean isDir;
@@ -41,15 +42,6 @@ public class File extends BaseEntity {
             return this.fileName;
         } else {
             return this.fileName;
-        }
-    }
-
-    public String URL(){
-        if(!(this.isDir)) {
-            return "/uploadFiles/files" + this.fullPath;
-
-        } else {
-            return "/uploadFiles"+this.fullPath;
         }
     }
 

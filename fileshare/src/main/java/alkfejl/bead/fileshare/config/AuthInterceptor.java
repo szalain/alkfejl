@@ -45,4 +45,5 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         Role role = handler.getMethodAnnotation(Role.class);
         return role == null ? Collections.emptyList() : Arrays.asList(role.value());
     }
+
 }

@@ -37,4 +37,9 @@ public class User extends BaseEntity {
     public enum Role {
         GUEST, USER, MOD, ADMIN
     }
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }
