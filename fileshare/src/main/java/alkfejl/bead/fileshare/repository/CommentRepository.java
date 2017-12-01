@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
     Iterable<Comment> findAllByCommentedFileId(Long id);
+    void deleteAllByCommentedFileId(Long id);
 }

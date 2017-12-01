@@ -36,13 +36,13 @@ public class File extends BaseEntity {
     @Column
     private boolean isDir;
 
-    @Override
+    /*@Override
     public String toString(){
         if(!(this.isDir)) {
             return this.fileName;
         } else {
             return this.fileName;
         }
-    }
+    }*/
 
 }

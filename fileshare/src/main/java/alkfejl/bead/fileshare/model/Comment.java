@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,8 +36,8 @@ public class Comment extends BaseEntity {
     @Column
     private Date date = new Date();
 
-    @Override
+   /* @Override
     public String toString() {
         return this.date + " - " + this.user + ": " + this.text;
-    }
+    }*/
 }

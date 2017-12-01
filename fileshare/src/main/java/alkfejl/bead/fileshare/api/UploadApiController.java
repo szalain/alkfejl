@@ -59,16 +59,14 @@ public class UploadApiController {
           }
       }
 
-    @RequestMapping(value="showFile/**", method = RequestMethod.GET)
-    public ResponseEntity<?> showFile(HttpServletRequest request) {
+   @RequestMapping(value="/showFile/**/file", method = RequestMethod.GET)
+    public ResponseEntity showFile(HttpServletRequest request) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
+       restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-5);
         try {
             File file = storageService.showFile(restOfTheUrl);
-            Iterable<Comment> c = commentService.listCommentsByFile(restOfTheUrl);
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(c);
-            return ResponseEntity.ok(json);
+            return ResponseEntity.ok(file);
         } catch (FileNotFoundException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
@@ -134,6 +132,24 @@ public class UploadApiController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + restOfTheUrl + "\"")
                 .body(file);
+    }
+
+    @RequestMapping(value="/listFiles/**", method = RequestMethod.DELETE)
+    public ResponseEntity deleteFile(HttpServletRequest request) {
+        boolean success=false;
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/api/listFiles", "");
+        try {
+            storageService.delete(restOfTheUrl);
+            return ResponseEntity.ok().build();
+        } catch (UserNotValidException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
+        } catch (FileNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

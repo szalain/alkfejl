@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import alkfejl.bead.fileshare.api.UserApiController;
 import alkfejl.bead.fileshare.model.File;
 import alkfejl.bead.fileshare.model.User;
+import alkfejl.bead.fileshare.repository.CommentRepository;
 import alkfejl.bead.fileshare.repository.FileRepository;
 import alkfejl.bead.fileshare.service.UserService;
 import alkfejl.bead.fileshare.service.annotations.Role;
@@ -24,6 +25,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +33,7 @@ import static alkfejl.bead.fileshare.model.User.Role.*;
 
 
 @Service
+@Transactional
 public class UploadService {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
@@ -47,6 +50,10 @@ public class UploadService {
 
     @Autowired
     private UploadService storageService;
+    private Long id;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     public void store(MultipartFile file, String path) throws Exception {
 
@@ -157,4 +164,27 @@ public class UploadService {
 
         }
 
+    public void delete(String restOfTheUrl) throws Exception {
+        User user = userService.getUser();
+        if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
+            throw new UserNotValidException();
+        }
+        Long id = null;
+        if(fileRepository.findByFullPath(restOfTheUrl).isPresent()) {
+            id = fileRepository.findByFullPath(restOfTheUrl).get().getId();
+        } else {
+            throw new FileNotFoundException("Could not delete, file doesn't exist");
+        }
+        if(id!=null) {
+            String filename = storageService.findID(restOfTheUrl);
+            Path file = rootLocation.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+            if(!fileRepository.findByFullPath(restOfTheUrl).get().isDir()) {
+                boolean status = FileSystemUtils.deleteRecursively(resource.getFile());
+            }
+            commentRepository.deleteAllByCommentedFileId(id);
+            fileRepository.delete(id);
+
+        }
+    }
 }

@@ -56,12 +56,19 @@ public class CommentApiController {
         }
     }
 
-    @Role({ADMIN, MOD, USER})
-    @GetMapping("/commentlist")
-    public String getReports(Model model) {
-        Iterable<Comment> c = commentService.listComments();
-        model.addAttribute("comments", c);
-        return "listFiles";
+    //@Role({ADMIN, MOD, USER})
+    @GetMapping("/api/showFile/**/comments")
+    public ResponseEntity listCommentsByFile(HttpServletRequest request) {
+        String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
+        restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-9);
+        Iterable<Comment> c = null;
+        try {
+            c = commentService.listCommentsByFile(restOfTheUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(c);
     }
 /*
     @Role({ADMIN, MOD})
