@@ -66,6 +66,9 @@ public class UploadService {
                 throw new FileNotFoundException("No such directory!");
             }
             virtualFile.setPath(path);
+            if(file.getOriginalFilename().contains("/")) {
+                throw new IllegalArgumentException("The filename cannot contain the character \"/\"!");
+            }
             virtualFile.setFileName(file.getOriginalFilename());
             virtualFile.setEditLevel(0);
             virtualFile.setOwner(user);
@@ -87,6 +90,9 @@ public class UploadService {
                 throw new UserNotValidException();
             }
             File virtualFile = new File();
+            if(name.contains("/")) {
+            throw new IllegalArgumentException("The directory name cannot contain the character \"/\"!");
+            }
             virtualFile.setFileName(name+"/");
             virtualFile.setPath(location);
             if(!this.isDirPresent(location)) {
