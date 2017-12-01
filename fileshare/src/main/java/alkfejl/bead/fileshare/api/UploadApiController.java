@@ -134,11 +134,12 @@ public class UploadApiController {
                 .body(file);
     }
 
-    @RequestMapping(value="/listFiles/**", method = RequestMethod.DELETE)
+    @RequestMapping(value={"/listFiles/**", "/showFile/**"}, method = RequestMethod.DELETE)
     public ResponseEntity deleteFile(HttpServletRequest request) {
         boolean success=false;
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         restOfTheUrl = restOfTheUrl.replaceAll("/api/listFiles", "");
+        restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
         try {
             storageService.delete(restOfTheUrl);
             return ResponseEntity.ok().build();
