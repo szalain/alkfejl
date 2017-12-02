@@ -1,23 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from './routing/routing.module';
+
 
 import { AppComponent } from './app.component';
 import { ReportComponent } from './components/report/report.component';
-import { FileListViewComponent } from './components/file-list-view/file-list-view.component';
+import { IndexViewComponent } from './components/index-view/index-view.component';
+import {RouterModule} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
+import {RoutingModule} from "./routing/routing.module";
+import { LoginViewComponent } from './components/login-view/login-view.component';
+import { RegisterViewComponent } from './components/register-view/register-view.component';
+import { ReportListViewComponent } from './components/report-list-view/report-list-view.component';
+import { ReportItemViewComponent } from './components/report-item-view/report-item-view.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ReportComponent,
-    FileListViewComponent
+    IndexViewComponent,
+    LoginViewComponent,
+    RegisterViewComponent,
+    ReportListViewComponent,
+    ReportItemViewComponent
   ],
   imports: [
     BrowserModule,
-      RouterModule,
-      HttpClientModule
+    RoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

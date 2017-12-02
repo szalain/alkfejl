@@ -1,18 +1,24 @@
-<!--The content below is only a placeholder and can be replaced.-->
+
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    Fileshare
   </h1>
 
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo right">Logo</a>
+      <a *ngIf="this.authService.getUser()" routerLink="/user/{{this.authService.getUser().id}}" class="center">User: {{this.authService.getUser().username}} </a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-        <li><a routerLink="listFiles">List Files</a></li>
+        <li><a routerLink="/login">Bejelentkezés</a></li>
+        <li><a routerLink="/register">Regisztráció</a></li>
+        <li><a routerLink="/files">Fájlok</a></li>
+        <li><a routerLink="/users">Felhasználók</a></li>
+        <li><a routerLink="/report">Felhasználó jelentése</a></li>
+        <li><a routerLink="/reportlist">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
       </ul>
     </div>
   </nav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
 
+</div>
