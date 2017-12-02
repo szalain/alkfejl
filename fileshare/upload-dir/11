@@ -1,1 +1,35 @@
-kwnjfawjkenfwejknf
+curl -s --request POST 'https://portal.icy.nl/login' --data 'username=tothbalint@caesar.elte.hu&password=jelszo1as23' | awk -F":" '{print $12}' | awk -F'"' '{print $2}'
+
+curl -s -H "Session-token:$TOKEN" --request GET 'https://portal.icy.nl/data' --data 'username=tothbalint@caesar.elte.hu&password=jelszo123' |awk -F":" '{print $11}' | awk -F',' '{print $1}'
+
+curl -X POST --data 'username=nevembalint&password=anonymus' 'http://120.24.103.68'
+
+#!/bin/bash
+
+TEMPERATURE=15
+
+for RETRY in 1 2 3 4 5 6
+do
+        TOKEN=`curl -s --request POST 'https://portal.icy.nl/login' --data 'username=tothbalint@caesar.elte.hu&password=jelszo123' | awk -F":" '{print $12}' | awk -F'"' '{print $2}'`
+        
+        RESULT=`curl -s -H "Session-token:$TOKEN" --request POST 'https://portal.icy.nl/data' --data "uid={UID}&temperature1=$TEMPERATURE" | tr -d '{}"' | awk -F":" '{print $4}'`
+        [ $RESULT = OK ] && break
+        sleep 300
+done
+
+
+curl -s --request POST 'https://portal.icy.nl/login' --data 'username=tothbalint@caesar.elte.hu&password=jelszo1as23' | awk -F":" '{print $12}' | awk -F'"' '{print $2}'
+
+curl -X POST --data 'username=nevembalint&password=anonymus' 'https://17.134.127.250'
+
+curl -s -H --request GET 'http://120.24.103.68:8080' --data 'username=tothbalint@caesar.elte.hu&password=jelszo123' |awk -F":" '{print $11}' | awk -F',' '{print $1}'
+
+pki.google.com/GIAG2.crl
+clients1.google.com/ocsp0
+crl.geotrust.com/crls/secureca.crl
+https://www.geotrust.com/resources/repository
+ocsp.apple.com/ocsp03-appleistca2g1050
+www.apple.com/certificateauthority/rpa07
+crl.apple.com/appleistca2g1.crl
+https://p04-content.icloud.com (csomó ilyen)
+geotrust.com/resources/cps0

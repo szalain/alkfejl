@@ -54,4 +54,7 @@ export class File {
   public get isDir(): boolean {
     return this._isDir;
   }
+  public set isDir(bool: boolean) {
+    this._isDir = bool;
+  }
 }

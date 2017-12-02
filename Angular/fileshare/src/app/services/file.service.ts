@@ -5,13 +5,19 @@ import { File } from '../classes/file';
 
 @Injectable()
 export class FileService {
-    private static api = 'http://localhost:4200/api/listFiles/';
+    private static api = 'http://localhost:8080/api/showFile/';
 
   constructor(private http: HttpClient) { }
 
-    public getFiles(): Observable<File[]> {
+    public getFile(fullPath: String): Observable<File> {
+      const fileStream = this.http.get('http://localhost:8080/api/showFile' + fullPath + '/file') as Observable<File>;
+      console.log(fileStream)
+      return fileStream;
+    }
 
-        const fileStream = this.http.get(FileService.api) as Observable<File[]>;
+    public getFiles(path: String): Observable<File[]> {
+
+        const fileStream = this.http.get('http://localhost:8080/api/listFiles' + path) as Observable<File[]>;
         return fileStream;
     }
 }
