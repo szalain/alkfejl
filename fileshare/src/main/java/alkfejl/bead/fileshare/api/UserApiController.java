@@ -23,13 +23,12 @@ public class UserApiController {
         this.userService = userService;
     }
 
-    @Role({USER, MOD, ADMIN})
     @GetMapping
-    public ResponseEntity<User> user() {
+    public ResponseEntity user() {
         if (userService.isLoggedIn()) {
             return ResponseEntity.ok(userService.getUser());
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(false);
     }
 
     @PostMapping("/login")
@@ -42,9 +41,9 @@ public class UserApiController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity logout(@RequestBody User user) {
+    public ResponseEntity logout() {
         this.userService.setUser(null);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(false);
     }
 
     @PostMapping("/register")
