@@ -1,21 +1,15 @@
 <a *ngIf="file.isDir" href="/listFiles{{file.fullPath}}">
-<table>
-  <tr>
-    <td>Directory: </td>
-    <td>{{file.fullPath}}</td>
-    <td>{{file.owner.email}}</td>
-    <td>{{file.isDir}}</td>
-  </tr>
-</table>
+
+
+<div>
+    <strong>{{file.fileName}}</strong> - {{file.owner.email}}
+</div>
 </a>
 
 <a *ngIf="!file.isDir" href="/showFile{{file.fullPath}}">
-    <table>
-        <tr>
-            <td>File: </td>
-            <td>{{file.fullPath}}</td>
-            <td>{{file.owner.email}}</td>
-            <td>{{file.isDir}}</td>
-        </tr>
-    </table>
+
+<div>
+    <strong>{{file.fileName}}</strong> - {{file.owner.email}}
+</div>
+
 </a>

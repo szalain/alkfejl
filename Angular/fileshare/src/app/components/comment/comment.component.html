@@ -1,0 +1,6 @@
+<div *ngIf="comment">
+    <div style="width: 80%; height:30px;border-bottom: 2px solid #3f3f3f;margin: 0 auto;"></div>
+    <h5 class="red-text text-lighten-2">{{comment.user.email}}</h5>
+    <p><strong>Szöveg: </strong> {{comment.text}}</p>
+    <p><strong>Idő:</strong> {{comment.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+</div>

@@ -3,19 +3,23 @@ import { Router } from '@angular/router';
 import {FileItemViewComponent} from '../file-item-view/file-item-view.component';
 import {File} from '../../classes/file';
 import {FileService} from '../../services/file.service';
+import {CommentService} from '../../services/comment.service';
+import {Comment} from '../../classes/comment';
 
 @Component({
   selector: 'app-urlresolver',
   templateUrl: './urlresolver.component.html',
   styleUrls: ['./urlresolver.component.css'],
-    providers: [FileService]
+    providers: [FileService, CommentService]
 })
 export class UrlresolverComponent implements OnInit {
     private file: File;
     private files: File[];
   private path: String;
+  private comments: Comment[];
+  private fileID: number;
 private fileItemView: FileItemViewComponent;
-  constructor(private fileService: FileService) {
+  constructor(private fileService: FileService, private commentService: CommentService) {
   }
 
   ngOnInit() {
@@ -26,6 +30,10 @@ private fileItemView: FileItemViewComponent;
           console.log(this.path);
           this.fileService.getFile(this.path).subscribe((file) => {
               this.file = file as File;
+              this.fileID = file.id;
+          });
+          this.commentService.getComments(this.path).subscribe((comments) => {
+              this.comments = comments as Comment[];
           });
       }
       if (this.path.startsWith('/listFiles')) {

@@ -16,6 +16,7 @@ import { FileListViewComponent } from './components/file-list-view/file-list-vie
 import { FileComponent } from './components/file/file.component';
 import { FileItemViewComponent } from './components/file-item-view/file-item-view.component';
 import { UrlresolverComponent } from './components/urlresolver/urlresolver.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { UrlresolverComponent } from './components/urlresolver/urlresolver.compo
     FileListViewComponent,
     FileComponent,
     FileItemViewComponent,
-    UrlresolverComponent
+    UrlresolverComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

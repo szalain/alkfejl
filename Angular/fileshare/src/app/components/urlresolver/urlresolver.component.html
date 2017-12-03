@@ -1,10 +1,17 @@
 <div *ngIf="file">
   <app-file-item-view class="red-text text-lighten-2" [file]="file">File {{ file.fullPath }}</app-file-item-view>
+    <div *ngIf="comments">
+        <app-comment *ngFor="let comment of comments"
+                     [comment]="comment">
+        </app-comment>
+    </div>
 </div>
 <div *ngIf="files">
   <div>
     <h2 class="red-text text-lighten-2">Location: {{ path + '/' }}</h2>
   </div>
-  <app-file class="red-text text-lighten-2" *ngFor="let file of files"
+
+  <app-file class="collection-item" *ngFor="let file of files"
             [file]="file"></app-file>
+
 </div>
