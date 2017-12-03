@@ -17,6 +17,8 @@ import { FileItemViewComponent } from './components/file-item-view/file-item-vie
 import { UrlresolverComponent } from './components/urlresolver/urlresolver.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import { CreateDirComponent } from './components/create-dir/create-dir.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
     FileItemViewComponent,
     UrlresolverComponent,
     CommentComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    UploadFileComponent,
+    CreateDirComponent
   ],
   imports: [
     BrowserModule,

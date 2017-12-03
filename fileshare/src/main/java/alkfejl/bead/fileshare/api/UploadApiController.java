@@ -73,16 +73,22 @@ public class UploadApiController {
             return ResponseEntity.badRequest().build();
         }
     }
-
+    @CrossOrigin
     @RequestMapping(value="listFiles/**/upload",method = RequestMethod.POST)
     public ResponseEntity handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         boolean success=false;
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         restOfTheUrl = restOfTheUrl.replaceAll("/api/listFiles", "");
         restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-6);
+        HttpHeaders headers = new HttpHeaders();
+       /* headers.add(HttpHeaders.CONTENT_TYPE, "multipart/form-data; charset=UTF-8");
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Methods", "GET, POST");
+        headers.add("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with");
+        headers.add("Access-Control-Max-Age", "3600");*/
         try {
             storageService.store(file, restOfTheUrl);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.OK).body("File uploaded!");
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {
@@ -104,7 +110,7 @@ public class UploadApiController {
         restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-9);
         try {
             storageService.store(restOfTheUrl, name);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.OK).body("Directory created!");
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {
@@ -147,7 +153,8 @@ public class UploadApiController {
         restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
         try {
             storageService.delete(restOfTheUrl);
-            return ResponseEntity.ok().build();
+
+            return ResponseEntity.status(HttpStatus.OK).body("File(s) showed!");
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {

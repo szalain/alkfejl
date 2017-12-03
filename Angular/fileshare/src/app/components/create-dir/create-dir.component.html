@@ -2,13 +2,13 @@
   <form class="col s4 offset-s4">
     <div class="row">
       <div class="input-field col s12">
-        <input #text type="text" placeholder="Text">
+        <input #name type="text" placeholder="Name">
       </div>
     </div>
     <div class="row">
       <div class="col s12">
         <input type="button" value="Elküld" class="btn"
-               (click)="send(text.value)">
+               (click)="send(name.value)">
       </div>
     </div>
   </form>

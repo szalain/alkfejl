@@ -47,7 +47,7 @@ public class CommentApiController {
         restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-8);
         try {
             commentService.createComment(commentText, restOfTheUrl);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.OK).body("Comment created!");
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {

@@ -6,6 +6,8 @@ import {FileService} from '../../services/file.service';
 import {CommentService} from '../../services/comment.service';
 import {Comment} from '../../classes/comment';
 import {AddCommentComponent} from '../add-comment/add-comment.component';
+import {UploadFileComponent} from '../upload-file/upload-file.component';
+import {CreateDirComponent} from '../create-dir/create-dir.component';
 
 @Component({
   selector: 'app-urlresolver',
@@ -22,15 +24,17 @@ export class UrlresolverComponent implements OnInit {
 private fileItemView: FileItemViewComponent;
 private addCommentComponent: AddCommentComponent;
 private comment: Comment;
+private uploadFileComponent: UploadFileComponent;
+private createDirComponent: CreateDirComponent;
   constructor(private fileService: FileService, private commentService: CommentService) {
   }
 
   ngOnInit() {
       this.path = window.location.pathname;
-      console.log(this.path);
+      // console.log(this.path);
       if (this.path.startsWith('/showFile')) {
           this.path = this.path.replace('/showFile', '');
-          console.log(this.path);
+          // console.log(this.path);
           this.fileService.getFile(this.path).subscribe((file) => {
               this.file = file as File;
               this.fileID = file.id;
@@ -41,7 +45,7 @@ private comment: Comment;
       }
       if (this.path.startsWith('/listFiles')) {
           this.path = this.path.replace('/listFiles', '');
-          console.log(this.path);
+          // console.log(this.path);
           this.fileService.getFiles(this.path + '/').subscribe((files) => {
               this.files = files as File[];
 
