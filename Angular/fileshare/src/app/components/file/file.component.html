@@ -1,4 +1,4 @@
-<a *ngIf="file.isDir" href="/listFiles{{file.fullPath}}">
+<a *ngIf="file.isDir" routerLink="/listFiles{{file.fullPath}}">
 
 
 <div>
@@ -6,7 +6,7 @@
 </div>
 </a>
 
-<a *ngIf="!file.isDir" href="/showFile{{file.fullPath}}">
+<a *ngIf="!file.isDir" routerLink="/showFile{{file.fullPath}}">
 
 <div>
     <strong>{{file.fileName}}</strong> - {{file.owner.email}}

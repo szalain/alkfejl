@@ -9,8 +9,7 @@ export class Comment {
   private _user: User;
   private _date: Date;
 
-  public constructor(id: number, file: File, text: string, user: User, date: Date) {
-    this._id = id;
+  public constructor(file: File, text: string, user: User, date: Date) {
     this._file = file;
     this._text = text;
     this._user = user;

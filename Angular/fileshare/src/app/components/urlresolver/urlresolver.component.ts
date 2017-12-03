@@ -5,6 +5,7 @@ import {File} from '../../classes/file';
 import {FileService} from '../../services/file.service';
 import {CommentService} from '../../services/comment.service';
 import {Comment} from '../../classes/comment';
+import {AddCommentComponent} from '../add-comment/add-comment.component';
 
 @Component({
   selector: 'app-urlresolver',
@@ -19,6 +20,8 @@ export class UrlresolverComponent implements OnInit {
   private comments: Comment[];
   private fileID: number;
 private fileItemView: FileItemViewComponent;
+private addCommentComponent: AddCommentComponent;
+private comment: Comment;
   constructor(private fileService: FileService, private commentService: CommentService) {
   }
 
@@ -44,9 +47,9 @@ private fileItemView: FileItemViewComponent;
 
               files.forEach(f => {
                   if (f.fileName.charAt(f.fileName.length - 1) === '/') {
-                      f.isDir=true;
+                      f.isDir = true;
                   } else {
-                      f.isDir=false;
+                      f.isDir = false;
                   }
               });
           });
