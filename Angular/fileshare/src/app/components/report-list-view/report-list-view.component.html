@@ -1,3 +1,7 @@
-<p>
-  report-list-view works!
-</p>
+<h2 class="red-text text-lighten-2">Jelentések Listája</h2>
+<div class="collection">
+  <app-report-item-view *ngFor="let report of reports"
+            [report]="report"
+            (delTodo)="delTodo($event)">
+  </app-report-item-view>
+</div>

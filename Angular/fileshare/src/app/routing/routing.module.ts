@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterViewComponent },
   { path: 'login', component: LoginViewComponent },
     { path: 'report', component: ReportComponent },
-  { path: 'reportlist', component: ReportListViewComponent },
+  { path: 'report/list', component: ReportListViewComponent },
     { path: 'showFile', children: [ { path: '**', component: UrlresolverComponent} ] },
     { path: 'listFiles', children: [ { path: '**', component: UrlresolverComponent} ] },
     {path: 'show', component: FileItemViewComponent},

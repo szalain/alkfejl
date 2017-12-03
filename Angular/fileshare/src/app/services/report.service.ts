@@ -22,6 +22,14 @@ export class ReportService {
     return this.http.post(ReportService.api, {reported, description}) as Observable<Report>;
   }
 
+  public deleteReport(id: number) {
+    return this.http.delete(ReportService.api + '/delete/' + id);
+  }
+
+  public banUser(id: number) {
+    return this.http.delete(ReportService.api + '/ban/' + id);
+  }
+
   /*public getTodo(id: number): Observable<Todo> {
     //return TodoService._data.find((todo) => todo.id === id);
     let todoStream = this.http.get(TodoService.api + '/' + id) as Observable<Todo>;

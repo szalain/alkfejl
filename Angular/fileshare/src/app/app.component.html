@@ -14,7 +14,7 @@
         <li><a routerLink="/listFiles">Fájlok</a></li>
         <li><a routerLink="/users">Felhasználók</a></li>
         <li *ngIf="this.authService.getUser()"><a routerLink="/report">Felhasználó jelentése</a></li>
-        <li *ngIf="this.authService.getUser()"><a routerLink="/reportlist">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
+        <li *ngIf="this.authService.getUser()"><a routerLink="/report/list">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
       </ul>
     </div>
   </nav>

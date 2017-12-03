@@ -1,3 +1,15 @@
-<p>
-  report-item-view works!
-</p>
+<table>
+  <tbody>
+  <tr>
+    <td><strong>Bejelentett:  </strong>{{ report.reported.username }}</td>
+  </tr>
+  <tr>
+    <td><strong>Indoklás: </strong>{{ report.description }}</td>
+  </tr>
+  <tr>
+   <td><input type="button" value="Felhasználó Tiltása" class="btn" (click)="banUserFromReport(report.id)">
+      <input type="button" value="Jelentés Törlése" class="btn" (click)="delReport(report.id)">
+    </td>
+  </tr>
+  </tbody>
+</table>
