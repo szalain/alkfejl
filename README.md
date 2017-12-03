@@ -56,32 +56,49 @@ A projekt könyvtárstruktúrája 5 fő részre bontható:
 
 ## Végpontok
 User:
-- GET /login
-- GET /logout
-- GET /index
-- GET /register
-- POST /login
-- POST /register
+- GET user/
+- GET user/logout
+- POST user/login
+- POST user/register
 
 File/Upload:
-- GET /uploadFiles/:path/files
-- POST /uploadFiles/:path/upload
-- POST /uploadFiles/:path/createDir
+- GET /listFiles/:path
+- GET /showFile/:path/file
+- GET /getFile/:path
+- POST /listFiles/:path/upload
+- POST /listFiles/:path/createDir
+- DELETE /listFiles/:path
+- DELETE /showFile/:path
 
 Report:
-- GET /report
-- GET /reportlist
-- GET /reportlist/ban
-- GET /reportlist/delete
+- GET /report/list
 - POST /report
+- DELETE /report/delete/:id
+- DELETE /report/ban/:id
 
 Comment:
-- GET /commentlist
-- POST /comment
+- GET showFile/:path/comments
+- POST showFile/:path/comment
+- DELETE showFile/:path/comments/:id
 
-A /register végpont működésének ábrázolása szekvenciadiagrammal (vendégként, helyes adatokat megadva):
+A user/register végpont működésének ábrázolása szekvenciadiagrammal (vendégként, helyes adatokat megadva):
 
 ![Register végpont szekvenciadiagramja](docs/images/seqdiag.png)
 
 ## Az adatbázis struktúrája
 ![adatbázis](docs/images/adatb2.png)
+
+# Frontend
+## Fejlesztői környezet, használt technológiák
+Az alkalmazás frontendje egy Angular projektként kerül megvalósításra a 2017.2.5-ös verziójú JetBrains WebStorm fejlesztőkörnyezet használatával.
+A backend projekt fejlesztése TypeScript nyelven történik a Node.js használatával, a projekt futtatását az Angular CLI biztosítja.
+
+## Könyvtárstruktúra
+A projekt forráskódja az Angular/fileshare/src/app könyvtárban található, mely az alábbiakból áll:
+- app.component fájlok: Az egész alkalmazásra ható kinézeteket, sablonokat, eljárásokat tartalmazzák.
+- app.module.ts: Az alkalmazások végpontjaihoz tartozó komponenseket deklarálja, valamint a projekthez használt modulokat tartalmazza.
+- Könyvtárak:
+  - classes: A projekt Model része, a backend adatbázisának tábláit tartalmazza TypeScript osztályok formájában.
+  - components: A projekt végpontjainak megjelenítéséért felelő, a servicek használatával a backenddel kommunikáló, kontrollerként működő fájlokat tartalmazza, alkönyvtárai a végpontok, valamint a hozzájuk fűződő adatbázisbeli táblák, és azok listáinak komponensei.
+  - services: A backenddel való kommunikációt valósítja meg, HTTP Requesteket tartalmazó TypeScript fájlok segítségével.
+  - routing: A Router modul route-jait definiálva összeköti a projekt végpontjait a komponensekkel.
