@@ -8,12 +8,13 @@
     <div class="nav-wrapper">
       <a *ngIf="this.authService.getUser()" routerLink="/user/{{this.authService.getUser().id}}" class="center">User: {{this.authService.getUser().username}} </a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a routerLink="/login">Bejelentkezés</a></li>
-        <li><a routerLink="/register">Regisztráció</a></li>
+        <li *ngIf="this.authService.getUser()"><a (click)="logout()" routerLink="/">Kijelentkezés</a></li>
+        <li *ngIf="!this.authService.getUser()"><a routerLink="/login">Bejelentkezés</a></li>
+        <li *ngIf="!this.authService.getUser()"><a routerLink="/register">Regisztráció</a></li>
         <li><a routerLink="/listFiles">Fájlok</a></li>
         <li><a routerLink="/users">Felhasználók</a></li>
-        <li><a routerLink="/report">Felhasználó jelentése</a></li>
-        <li><a routerLink="/reportlist">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
+        <li *ngIf="this.authService.getUser()"><a routerLink="/report">Felhasználó jelentése</a></li>
+        <li *ngIf="this.authService.getUser()"><a routerLink="/reportlist">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
       </ul>
     </div>
   </nav>

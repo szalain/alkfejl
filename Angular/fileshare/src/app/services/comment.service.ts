@@ -16,7 +16,7 @@ private path: string;
 
     public getComments(path: String): Observable<Comment[]> {
         let comments: Comment[];
-        const commentStream = this.http.get('http://localhost:8080/api/showFile' + path + '/comments') as Observable<Comment[]>;
+        const commentStream = this.http.get('http://localhost:4200/api/showFile' + path + '/comments') as Observable<Comment[]>;
         return commentStream;
     }
 
@@ -28,7 +28,7 @@ private path: string;
         console.log(comment);
         const formData: FormData = new FormData();
         formData.append('comment', text);
-        return this.http.post('http://localhost:8080/api/showFile' + file.fullPath + '/comment', formData, {
+        return this.http.post('http://localhost:4200/api/showFile' + file.fullPath + '/comment', formData, {
             headers: new HttpHeaders().set('Content-Type', 'application/json')
         }).subscribe();
     }

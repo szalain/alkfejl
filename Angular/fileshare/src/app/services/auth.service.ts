@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {User} from "../classes/user";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
+import {User} from '../classes/user';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-
-  private static api: string = 'http://localhost:8080/api/user';
+  private static api = 'http://localhost:4200/api/user';
   public static user: User;
 
   constructor(
@@ -35,6 +34,7 @@ export class AuthService {
   }
 
   public syncLoginStatus(): void {
+    console.log(AuthService.user);
     this.http.get(AuthService.api).subscribe((user: User) => {
       if (user) {
         this.setUser(user);

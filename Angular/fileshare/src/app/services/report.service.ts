@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import {Report} from "../classes/report";
-import {User} from "../classes/user";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {Report} from '../classes/report';
+import {User} from '../classes/user';
 
 @Injectable()
 export class ReportService {
 
-  private static api: string = 'http://localhost:8080/api/report';
+    private static api = 'http://localhost:4200/api/report';
 
   constructor(
     private http: HttpClient
@@ -17,7 +17,7 @@ export class ReportService {
     return this.http.get(ReportService.api + '/list') as Observable<Report[]>;
   }
 
-  //TODO: hibakezelés nemlétező user esetén
+  // TODO: hibakezelés nemlétező user esetén
   public createReport(reported: User, description: string): Observable<Report> {
     return this.http.post(ReportService.api, {reported, description}) as Observable<Report>;
   }

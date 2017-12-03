@@ -1,3 +1,21 @@
-<p>
-  report works!
-</p>
+<div class="row">
+  <form class="col s4 offset-s4">
+    <h3 class="red-text text-lighten-2">Felhasználó jelentése</h3>
+    <div class="row">
+      <div class="input-field col s12">
+        <input #username type="text" placeholder="Felhasználónév">
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea #description placeholder="Jelentés szövege"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <input type="button" value="Kuldes" class="btn"
+               (click)="sendReport(username.value, description.value)">
+      </div>
+    </div>
+  </form>
+</div>

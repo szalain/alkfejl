@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {AuthService} from "./services/auth.service";
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.authService.syncLoginStatus();
+    this.authService.syncLoginStatus();
       // override the route reuse strategy
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
           return false;
