@@ -27,6 +27,7 @@ public class ReportApiController {
     @PostMapping
     private ResponseEntity<Report> create(@RequestBody Report report) {
         //return ResponseEntity.ok(reportService.createReport(report));
+        System.out.println(report);
         if (userService.isFound(report.getReported())) {
             report.setReported(userService.getUser(report.getReported().getUsername()));
             report.setDate(new Date());
@@ -46,7 +47,7 @@ public class ReportApiController {
     @DeleteMapping("/delete/{id}")
     private ResponseEntity delete(@PathVariable Long id) {
         reportService.deleteReport(reportService.getReport(id));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(true);
     }
 
     @Role({MOD, ADMIN})
@@ -58,7 +59,7 @@ public class ReportApiController {
         for(Report r : reportService.listReports()) {
             if (r.getReported().equals(report.getReported())) reportService.deleteReport(r);
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(true);
     }
 
 }
