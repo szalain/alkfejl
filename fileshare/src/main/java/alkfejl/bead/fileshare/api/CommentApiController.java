@@ -76,7 +76,7 @@ public class CommentApiController {
     public ResponseEntity deleteCommentById(HttpServletRequest request, @PathVariable Long id) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         restOfTheUrl = restOfTheUrl.replaceAll("/api/showFile", "");
-        restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-9);
+        restOfTheUrl = restOfTheUrl.substring(0, restOfTheUrl.length()-12);
         Iterable<Comment> c = null;
         try {
             commentService.deleteCommentById(id);
@@ -87,7 +87,8 @@ public class CommentApiController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(c);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Comment deleted!");
     }
 /*
     @Role({ADMIN, MOD})

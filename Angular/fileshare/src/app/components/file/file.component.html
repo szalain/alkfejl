@@ -1,15 +1,11 @@
-<a *ngIf="file.isDir" routerLink="/listFiles{{file.fullPath}}">
-
-
-<div>
+<div *ngIf="file.isDir" >
+<a routerLink="/listFiles{{file.fullPath}}">
     <strong>{{file.fileName}}</strong> - {{file.owner.email}}
-</div>
 </a>
-
-<a *ngIf="!file.isDir" routerLink="/showFile{{file.fullPath}}">
-
-<div>
-    <strong>{{file.fileName}}</strong> - {{file.owner.email}}
 </div>
-
-</a>
+<div *ngIf="!file.isDir" >
+    <a routerLink="/showFile{{file.fullPath}}">
+        <strong>{{file.fileName}}</strong> - {{file.owner.email}}
+    </a>
+    <a *ngIf="file.owner.id==this.authService.getUser().id" (click)="delFile()">[X]</a>
+</div>

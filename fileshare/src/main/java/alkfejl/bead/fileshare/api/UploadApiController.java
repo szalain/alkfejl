@@ -145,7 +145,7 @@ public class UploadApiController {
                 .body(file);
     }
 
-    @RequestMapping(value={"/listFiles/**", "/showFile/**"}, method = RequestMethod.DELETE)
+    @RequestMapping(value={"/listFiles/**"}, method = RequestMethod.DELETE)
     public ResponseEntity deleteFile(HttpServletRequest request) {
         boolean success=false;
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -154,7 +154,7 @@ public class UploadApiController {
         try {
             storageService.delete(restOfTheUrl);
 
-            return ResponseEntity.status(HttpStatus.OK).body("File(s) showed!");
+            return ResponseEntity.status(HttpStatus.OK).body("File deleted!");
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {

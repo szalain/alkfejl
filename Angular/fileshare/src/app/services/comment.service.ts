@@ -16,7 +16,7 @@ private path: string;
     }
 
     public getComments(path: String): Observable<Comment[]> {
-        let comments: Comment[];
+        // let comments: Comment[];
         const commentStream = this.http.get('http://localhost:4200/api/showFile' + path + '/comments') as Observable<Comment[]>;
         return commentStream;
     }
@@ -26,6 +26,14 @@ private path: string;
         formData.append('comment', text);
         const subscription = this.http.post('http://localhost:4200/api/showFile' + file.fullPath + '/comment', formData, {responseType: 'text'}).subscribe(result => console.log(result));
         this.r.navigateByUrl('/showFile' + path);
+        return subscription;
+    }
+    public delComment(id: number): Subscription {
+        this.path = window.location.pathname;
+        this.path = this.path.replace('/showFile', '');
+        console.log(this.path);
+        const subscription = this.http.delete('http://localhost:4200/api/showFile' + this.path + '/comments/' + id, { responseType: 'text' }).subscribe(result => console.log(result));
+        this.r.navigateByUrl('/showFile' + this.path);
         return subscription;
     }
 }
