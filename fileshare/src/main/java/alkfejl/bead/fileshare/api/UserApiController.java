@@ -34,6 +34,7 @@ public class UserApiController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
+            if (userService.isBanned(user)) return ResponseEntity.status(403).build();
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException e) {
             return ResponseEntity.badRequest().build();
@@ -48,6 +49,7 @@ public class UserApiController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
+        if(userService.isDataDuplicated(user)) return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(userService.register(user));
     }
 
