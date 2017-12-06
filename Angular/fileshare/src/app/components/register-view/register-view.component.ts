@@ -10,6 +10,11 @@ import {Router} from '@angular/router';
 })
 export class RegisterViewComponent implements OnInit {
 
+  private error: boolean;
+  private success: boolean;
+  private errorMsg = 'Hiba: A felhasználónév/email már regisztrálva lett!'
+  private successMsg = 'Sikeres regisztráció! Átirányítás a bejelentkezésre...'
+
   constructor(
     private userService: UserService,
     private router: Router
@@ -20,7 +25,18 @@ export class RegisterViewComponent implements OnInit {
 
   // TODO: szerveroldalon és kliensoldalon helyesség vizsgálata: username:min. 3 karakter, és egyedi kell legyen, email: *@*.** formátum, jelszó: min. 3 karakter
   private tryRegister(username: string, email: string, password: string): void {
-    this.userService.registerUser(username, email, password).subscribe((user) => console.log(user));
+    this.userService.registerUser(username, email, password).subscribe((user) => {
+        console.log(user);
+        this.error = false;
+        this.success = true;
+        setTimeout((router) => {
+            this.router.navigate(['login']);
+        }, 3000);
+    }, (err) => {
+        if (err.status === 400) {
+            this.error = true;
+        }
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="row">
-  <form class="col s4 offset-s4">
+  <form class="col s4 offset-s4" (keydown.enter)="tryRegister(username.value, email.value, password.value)">
     <h3 class="red-text text-lighten-2">Regisztráció</h3>
     <div class="row">
       <div class="input-field col s12">
@@ -20,6 +20,8 @@
       <div class="col s12">
         <input type="button" value="Regisztráció" class="btn"
                (click)="tryRegister(username.value, email.value, password.value)">
+        <p *ngIf="error" [ngClass]="error ? 'error' : ''" >{{errorMsg}}</p>
+        <p *ngIf="success" [ngClass]="success ? 'success' : ''" >{{successMsg}}</p>
       </div>
     </div>
   </form>

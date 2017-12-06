@@ -12,6 +12,7 @@ import {User} from '../../classes/user';
 export class LoginViewComponent implements OnInit {
 
   private error: boolean;
+  private errorMsg: string;
 
   constructor(
     private authService: AuthService,
@@ -25,10 +26,14 @@ export class LoginViewComponent implements OnInit {
     this.authService.login(username, password).subscribe((user) => {
       console.log(user);
       this.authService.setUser(user as User);
+      this.error = false;
       this.router.navigate(['/']);
     }, (err) => {
+      this.error = true;
       if (err.status === 403) {
-        this.error = true;
+        this.errorMsg = 'Hiba: \'' + username + '\' felhasználó ki van tiltva!';
+      } else if (err.status === 400) {
+        this.errorMsg = 'Hiba: Nem megfelelő felhasználónév/jelszó!';
       }
     });
   }
