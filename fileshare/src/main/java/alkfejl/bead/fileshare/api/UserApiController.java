@@ -50,6 +50,7 @@ public class UserApiController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         if(userService.isDataDuplicated(user)) return ResponseEntity.badRequest().build();
+        if(!userService.isDataValid(user)) return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(userService.register(user));
     }
 
