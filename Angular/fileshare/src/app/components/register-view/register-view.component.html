@@ -1,12 +1,12 @@
 <div class="row">
-  <form class="col s4 offset-s4" (keydown.enter)="tryRegister(username.value, email.value, password.value)">
+  <form class="col s4 offset-s4" #regForm="ngForm" (keydown.enter)="tryRegister(username.value, email.value, password.value)">
     <h3 class="red-text text-lighten-2">Regisztráció</h3>
     <div class="row">
       <div class="input-field col s12">
         <div tool-tip="3-16 karakter, betűvel kell kezdődnie (a-z,A-Z,0-9 karaktereket tartalmazhat)">
-        <input type="text" id="username" placeholder="Felhasználónév" [ngModel]="user.username" name="username" #username="ngModel" required minlength="3" maxlength="16" pattern="[a-zA-Z][a-zA-Z0-9]*" >
+        <input type="text" placeholder="Felhasználónév" [ngModel]="user.username" name="username" #username="ngModel" required minlength="3" maxlength="16" pattern="[a-zA-Z][a-zA-Z0-9]*" >
 
-          <div *ngIf="username.errors && (username.dirty || username.touched)" class="alert alert-danger">
+          <div *ngIf="username.errors && (username.dirty || username.touched)" class="error">
             <div [hidden]="!username.errors.required">
               A felhasználónév nem lehet üres!
             </div>
@@ -27,20 +27,50 @@
     <div class="row">
       <div class="input-field col s12">
         <div tool-tip="formátuma: 'abc@pelda.com' (a-z,A-Z,0-9 karaktereket tartalmazhat)">
-        <input #email type="email" placeholder="E-mail">
+        <input #email="ngModel" type="email" placeholder="E-mail" [ngModel]="user.email" name="email" required minlength="10" maxlength="57"
+               pattern="[a-zA-Z0-9]{3,16}@[a-zA-Z0-9]{3,16}(\.[a-zA-Z]{2,8}){1,3}">
+
+          <div *ngIf="email.errors && (email.dirty || email.touched)" class="error">
+            <div [hidden]="!email.errors.required">
+              Az E-mail mező nem lehet üres!
+            </div>
+            <div [hidden]="!email.errors.minlength">
+              Túl rövid E-mail cím!
+            </div>
+            <div [hidden]="!email.errors.pattern">
+              Nem megfelelő E-mail formátum!
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <div tool-tip="5-16 karakter hosszú (a-z,A-Z,0-9 karaktereket tartalmazhat)">
-        <input #password type="password" placeholder="Jelszó">
+        <input #password="ngModel" type="password" placeholder="Jelszó" [ngModel]="user.password" name="password" required minlength="5" maxlength="16" pattern="[a-zA-Z0-9]*">
+
+          <div *ngIf="password.errors && (password.dirty || password.touched)" class="error">
+            <div [hidden]="!password.errors.required">
+              A jelszó nem lehet üres!
+            </div>
+            <div [hidden]="!password.errors.minlength">
+              Legalább 5 karakter hosszúnak kell lennie a jelszónak!
+            </div>
+            <div [hidden]="!password.errors.maxlength">
+              A jelszó nem lehet hosszabb 16 karakternél!
+            </div>
+            <div [hidden]="!password.errors.pattern">
+              A jelszóban nem lehet speciális karakter!
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col s12">
-        <input type="button" value="Regisztráció" class="btn"
+        <input type="button" value="Regisztráció" class="btn" [disabled]="!regForm.form.valid || success.valueOf()"
                (click)="tryRegister(username.value, email.value, password.value)">
         <p *ngIf="error" [ngClass]="error ? 'error' : ''" >{{errorMsg}}</p>
         <p *ngIf="success" [ngClass]="success ? 'success' : ''" >{{successMsg}}</p>
