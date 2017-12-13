@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static alkfejl.bead.fileshare.model.User.Role.ADMIN;
-import static alkfejl.bead.fileshare.model.User.Role.MOD;
-import static alkfejl.bead.fileshare.model.User.Role.USER;
+import static alkfejl.bead.fileshare.model.User.Role.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -31,6 +29,7 @@ public class UserApiController {
         return ResponseEntity.ok(false);
     }
 
+    @Role(GUEST)
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
@@ -47,6 +46,7 @@ public class UserApiController {
         return ResponseEntity.ok(false);
     }
 
+    @Role(GUEST)
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         if(userService.isDataDuplicated(user)) return ResponseEntity.badRequest().build();
