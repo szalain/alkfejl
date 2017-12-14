@@ -55,7 +55,7 @@ public class UploadService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public void store(MultipartFile file, String path) throws Exception {
+    public File store(MultipartFile file, String path) throws Exception {
 
             User user = userService.getUser();
             if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
@@ -82,6 +82,7 @@ public class UploadService {
             String newName = fileRepository.findByFullPath(path+file.getOriginalFilename()).get().getId().toString();
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
+            return virtualFile;
     }
 
     public void store(String location, String name) throws Exception {
@@ -171,25 +172,33 @@ public class UploadService {
 
     public void delete(String restOfTheUrl) throws Exception {
         User user = userService.getUser();
+        File virtualFile = null;
+
         if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
-            throw new UserNotValidException();
+            throw new UserNotValidException("User is not valid or is banned!");
         }
-        Long id = null;
         if(fileRepository.findByFullPath(restOfTheUrl).isPresent()) {
             id = fileRepository.findByFullPath(restOfTheUrl).get().getId();
+            virtualFile = fileRepository.findByFullPath(restOfTheUrl).get();
         } else {
             throw new FileNotFoundException("Could not delete, file doesn't exist");
         }
-        if(id!=null) {
-            String filename = storageService.findID(restOfTheUrl);
-            Path file = rootLocation.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if(!fileRepository.findByFullPath(restOfTheUrl).get().isDir()) {
-                boolean status = FileSystemUtils.deleteRecursively(resource.getFile());
-            }
-            commentRepository.deleteAllByCommentedFileId(id);
-            fileRepository.delete(id);
+        if("ADMIN".equals(user.getRole()) || user.getId()==virtualFile.getOwner().getId()) {
 
-        }
+
+            if (id != null) {
+                String filename = storageService.findID(restOfTheUrl);
+                Path file = rootLocation.resolve(filename);
+                Resource resource = new UrlResource(file.toUri());
+                if (!fileRepository.findByFullPath(restOfTheUrl).get().isDir()) {
+                    boolean status = FileSystemUtils.deleteRecursively(resource.getFile());
+                }
+                commentRepository.deleteAllByCommentedFileId(id);
+                fileRepository.delete(id);
+
+            }
+        } else {
+            throw new UserNotValidException("File could not be deleted: the user is the owner or ADMIN!")
+;        }
     }
 }

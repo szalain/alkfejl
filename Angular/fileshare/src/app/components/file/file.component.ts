@@ -13,13 +13,18 @@ export class FileComponent implements OnInit {
     @Input()
     public file: File;
 
+    @Output()
+    public delFile: EventEmitter<string> = new EventEmitter();
+
+    public clickButton($event: Event): void {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.delFile.emit(this.file.fullPath);
+    }
 
   constructor(private fileService: FileService, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  public delFile(): void {
-      this.fileService.delFile(this.file.fullPath);
-  }
 }

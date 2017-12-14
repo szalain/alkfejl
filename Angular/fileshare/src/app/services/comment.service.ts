@@ -25,7 +25,9 @@ private path: string;
         const formData: FormData = new FormData();
         formData.append('comment', text);
         const subscription = this.http.post('http://localhost:4200/api/showFile' + file.fullPath + '/comment', formData, {responseType: 'text'}).subscribe(result => console.log(result));
-        this.r.navigateByUrl('/showFile' + path);
+        setTimeout((router) => {
+            this.r.navigateByUrl('/showFile' + path);
+        }, 500);
         return subscription;
     }
     public delComment(id: number): Subscription {
@@ -33,7 +35,9 @@ private path: string;
         this.path = this.path.replace('/showFile', '');
         console.log(this.path);
         const subscription = this.http.delete('http://localhost:4200/api/showFile' + this.path + '/comments/' + id, { responseType: 'text' }).subscribe(result => console.log(result));
-        this.r.navigateByUrl('/showFile' + this.path);
+        setTimeout((router) => {
+            this.r.navigateByUrl('/showFile' + this.path);
+        }, 500);
         return subscription;
     }
 }

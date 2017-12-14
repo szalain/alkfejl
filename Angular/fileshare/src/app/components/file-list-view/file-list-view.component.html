@@ -1,0 +1,9 @@
+<app-upload-file></app-upload-file>
+<app-create-dir></app-create-dir>
+<div class="collection">
+    <app-file *ngFor="let file of files"
+              [file]="file"
+              (delFile)="clickButton($event)">
+    </app-file>
+</div>
+

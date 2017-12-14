@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../services/auth.service';
 
+import { UrlresolverComponent} from '../urlresolver/urlresolver.component';
+
 @Component({
     selector: 'app-create-dir',
     templateUrl: './create-dir.component.html',
@@ -13,7 +15,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class CreateDirComponent implements OnInit {
     private path: string;
-    constructor(private fileService: FileService, private http: HttpClient, private authService: AuthService) { }
+    constructor(private fileService: FileService, private http: HttpClient, private authService: AuthService, private urlresolver: UrlresolverComponent) { }
 
     ngOnInit() {
     }
@@ -21,7 +23,7 @@ export class CreateDirComponent implements OnInit {
     private send(name: string): void {
         this.path = window.location.pathname;
         this.path = this.path.replace('/listFiles', '');
-        this.fileService.createDir(this.path, name);
+        this.urlresolver.createDir(this.path, name);
     }
 
 }

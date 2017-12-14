@@ -5,6 +5,8 @@ import {CommentService} from '../../services/comment.service';
 import {FileService} from '../../services/file.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import { UrlresolverComponent} from '../urlresolver/urlresolver.component';
+import { File as VirtualFile } from '../../classes/file';
 
 @Component({
   selector: 'app-upload-file',
@@ -15,7 +17,7 @@ import {AuthService} from '../../services/auth.service';
 export class UploadFileComponent implements OnInit {
 private file: File;
     private path: string;
-  constructor(private fileService: FileService, private http: HttpClient, private r : Router, private authService: AuthService) { }
+  constructor(private fileService: FileService, private http: HttpClient, private r : Router, private authService: AuthService, private urlresolver: UrlresolverComponent) { }
 
   ngOnInit() {
 
@@ -33,7 +35,6 @@ private file: File;
         }
     }
     onSubmit() {
-    this.fileService.uploadFile(this.path, this.file);
-        this.r.navigateByUrl('/listFiles' + this.path);
+    this.urlresolver.uploadFile(this.path, this.file);
     }
 }

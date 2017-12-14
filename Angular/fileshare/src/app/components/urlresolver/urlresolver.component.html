@@ -13,8 +13,6 @@
     <h2 class="red-text text-lighten-2">Location: {{ path + '/' }}</h2>
   </div>
 
-  <app-file class="collection-item" *ngFor="let file of files"
-            [file]="file"></app-file>
-    <app-upload-file></app-upload-file>
-    <app-create-dir></app-create-dir>
+  <app-file-list-view class="red-text text-lighten-2" [files]="files" (delFileEmit)="delFile($event)"></app-file-list-view>
+
 </div>

@@ -87,8 +87,8 @@ public class UploadApiController {
         headers.add("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with");
         headers.add("Access-Control-Max-Age", "3600");*/
         try {
-            storageService.store(file, restOfTheUrl);
-            return ResponseEntity.status(HttpStatus.OK).body("File uploaded!");
+
+            return ResponseEntity.status(HttpStatus.OK).body(storageService.store(file, restOfTheUrl));
         } catch (UserNotValidException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
         } catch (FileNotFoundException e) {
@@ -99,7 +99,7 @@ public class UploadApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ismeretlen hiba!");
         }
     }
 
@@ -156,7 +156,7 @@ public class UploadApiController {
 
             return ResponseEntity.status(HttpStatus.OK).body("File deleted!");
         } catch (UserNotValidException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not valid or is banned!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (FileNotFoundException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }  catch (Exception e) {
