@@ -33,7 +33,8 @@ public class UserService {
 
     public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
-            return this.user = userRepository.findByUsername(user.getUsername()).get();
+            //return this.user = userRepository.findByUsername(user.getUsername()).get();
+            return this.user = userRepository.findByUsernameIgnoreCase(user.getUsername()).get();
         }
         throw new UserNotValidException();
     }
@@ -44,7 +45,7 @@ public class UserService {
     }
 
     public boolean isValid(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
+        return userRepository.findByUsernameIgnoreCaseAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
 
     public boolean isLoggedIn() {
@@ -52,7 +53,7 @@ public class UserService {
     }
 
     public boolean isFound(User user) {
-        return userRepository.findByUsername(user.getUsername()).isPresent();
+        return userRepository.findByUsernameIgnoreCase(user.getUsername()).isPresent();
     }
 
     public boolean isBanned(User user) {
@@ -60,11 +61,17 @@ public class UserService {
     }
 
     public User getUser(String username) {
-        return userRepository.findByUsername(username).get();
+        return userRepository.findByUsernameIgnoreCase(username).get();
     }
 
     public boolean isDataDuplicated(User user) {
-        return userRepository.findByUsername(user.getUsername()).isPresent() || userRepository.findByEmail(user.getEmail()).isPresent();
+        return userRepository.findByUsernameIgnoreCase(user.getUsername()).isPresent() || userRepository.findByEmailIgnoreCase(user.getEmail()).isPresent();
+    }
+
+    public boolean isDataValid(User user) {
+        return user.getUsername().matches("[a-zA-Z][a-zA-Z0-9]{2,15}")
+                && user.getEmail().matches("[a-zA-Z0-9]{3,16}@[a-zA-Z0-9]{3,16}(\\.[a-zA-Z]{2,8}){1,3}")
+                && user.getPassword().matches("[a-zA-Z0-9]{5,16}");
     }
 
     public User getUserById(Long id) {

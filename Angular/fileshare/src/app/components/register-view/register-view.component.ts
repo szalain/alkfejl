@@ -10,10 +10,11 @@ import {Router} from '@angular/router';
 })
 export class RegisterViewComponent implements OnInit {
 
-  private error: boolean;
-  private success: boolean;
-  private errorMsg = 'Hiba: A felhasználónév/email már regisztrálva lett!'
+  private error = false;
+  private success = false;
+  private errorMsg = 'A felhasználónév/email már regisztrálva lett!'
   private successMsg = 'Sikeres regisztráció! Átirányítás a bejelentkezésre...'
+  private user: Object = {};
 
   constructor(
     private userService: UserService,
@@ -31,7 +32,7 @@ export class RegisterViewComponent implements OnInit {
         this.success = true;
         setTimeout((router) => {
             this.router.navigate(['login']);
-        }, 3000);
+        }, 2000);
     }, (err) => {
         if (err.status === 400) {
             this.error = true;

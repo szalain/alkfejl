@@ -19,6 +19,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { CreateDirComponent } from './components/create-dir/create-dir.component';
+import {FormsModule, NgForm} from "@angular/forms";
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { CreateDirComponent } from './components/create-dir/create-dir.component
   imports: [
     BrowserModule,
     RoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

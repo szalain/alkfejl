@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {User} from '../classes/user';
+import {Role, User} from '../classes/user';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
   private static api = 'http://localhost:4200/api/user';
-  public static user: User;
+  public static user = new User();
 
   constructor(
     private http: HttpClient
@@ -21,7 +21,7 @@ export class AuthService {
 
   public logout(): void {
     this.http.get(AuthService.api + '/logout').subscribe(() => {
-      this.setUser(undefined);
+      this.setUser(new User());
     });
   }
 
@@ -34,19 +34,24 @@ export class AuthService {
   }
 
   public syncLoginStatus(): void {
-    console.log(AuthService.user);
     this.http.get(AuthService.api).subscribe((user: User) => {
       if (user) {
         this.setUser(user);
+      } else {
+          //AuthService.user = new User();
+          /*console.log(this.hasRole(Role.GUEST));
+          console.log(this.hasRole(Role.ADMIN));
+          console.log(this.getUser());*/
       }
     });
+    //console.log(this.getUser());
   }
 
-  /*public hasRole(role) {
+  public hasRole(role) {
     if (!this.getUser()) {
       return false;
     }
-    return this.getUser().role == role;
+    return this.getUser().role === role;
   }
-*/
+
 }

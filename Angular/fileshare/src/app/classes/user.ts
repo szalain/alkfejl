@@ -1,17 +1,26 @@
+export class Role {
+    static GUEST = 'GUEST';
+    static USER = 'USER';
+    static MOD = 'MOD';
+    static ADMIN = 'ADMIN';
+}
+
 export class User {
 
-    private id: number;
-    private username: string;
-    private email: string;
-    private uploadCount: number;
-    private isBanned: boolean;
+    id: number;
+    username: string;
+    email: string;
+    uploadCount: number;
+    isBanned: boolean;
+    role: string;
 
-    public constructor(id: number, username: string, email: string, uploadCount: number, isBanned: boolean) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.uploadCount = uploadCount;
-        this.isBanned = isBanned;
+    public constructor(id?: number, username?: string, email?: string, uploadCount?: number, isBanned?: boolean, role?: string) {
+        this.id = id || null;
+        this.username = username || null;
+        this.email = email || null;
+        this.uploadCount = uploadCount || null;
+        this.isBanned = isBanned || null;
+        this.role = role || Role.GUEST;
     }
     /*
       public get id(): number {
