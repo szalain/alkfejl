@@ -20,6 +20,8 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { CreateDirComponent } from './components/create-dir/create-dir.component';
 import {FormsModule, NgForm} from "@angular/forms";
+import { UserControlComponent } from './components/user-control/user-control.component';
+import { UserControlItemViewComponent } from './components/user-control-item-view/user-control-item-view.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import {FormsModule, NgForm} from "@angular/forms";
     CommentComponent,
     AddCommentComponent,
     UploadFileComponent,
-    CreateDirComponent
+    CreateDirComponent,
+    UserControlComponent,
+    UserControlItemViewComponent
   ],
   imports: [
     BrowserModule,

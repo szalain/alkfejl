@@ -14,7 +14,8 @@
         <li><a routerLink="/listFiles">Fájlok</a></li>
         <li><a routerLink="/users">Felhasználók</a></li>
         <li *ngIf="!this.authService.hasRole('GUEST')"><a routerLink="/report">Felhasználó jelentése</a></li>
-        <li *ngIf="this.authService.hasRole('MOD') || this.authService.hasRole('ADMIN')"><a routerLink="/report/list">Jelentéslista</a></li> <!--TODO: Csak ADMIN/MOD részére-->
+        <li *ngIf="this.authService.hasRole('MOD') || this.authService.hasRole('ADMIN')"><a routerLink="/report/list">Jelentéslista</a></li>
+        <li *ngIf="this.authService.hasRole('ADMIN')"><a routerLink="/user/control">Felhasználókezelés</a></li>
       </ul>
     </div>
   </nav>
