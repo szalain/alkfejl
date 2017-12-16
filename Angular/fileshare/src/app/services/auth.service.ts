@@ -38,6 +38,7 @@ export class AuthService {
     this.http.get(AuthService.api).subscribe((user: User) => {
       if (user) {
         this.setUser(user);
+        if (user.isBanned) this.logout();
       } else {
           // AuthService.user = new User();
           /*console.log(this.hasRole(Role.GUEST));
