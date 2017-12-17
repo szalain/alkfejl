@@ -2,33 +2,32 @@ Szalai Norbert & Tóth Bálint
 
 # Fájlmegosztó webes alkalmazás
 ## Az alkalmazás leírása
-Fájlmegosztó webes alkalmazás, melyre fel lehet tölteni fájlokat, valamint le lehet tölteni azokat. A felhasználói élmény növelése érdekében lehetőség van a fájlok rendszerezett feltöltésére mappákba való csoportosítással. A feltöltött fájlok nyilvánossága szabályozható jogosultságok beállításával, a szabálysértő fájlok, fájlleírások jelenthetőek, a bejelentések elbírálását a moderátorok, adminisztrátorok végzik.
+Fájlmegosztó webes alkalmazás, melyre fel lehet tölteni fájlokat, valamint le lehet tölteni azokat. A felhasználói élmény növelése érdekében lehetőség van a fájlok rendszerezett feltöltésére mappákba való csoportosítással. A szabálysértő felhasználók jelenthetőek, a bejelentések elbírálását a moderátorok, adminisztrátorok végzik.
 ## Az alkalmazás funkciói
 #### Felhasználói szintek
 - Az alkalmazás bizonyos funkciói használhatóak regisztráció nélkül, több funkció használatához regisztráció szükséges (Username + Password + E-mail megadásával).
-- Az alkalmazás lehetővé teszi "Admin" felhasználók létrehozását. Az adminoknak lehetőségük van felhasználók kitiltására, feltöltött fájlok törlésére, vagy annak adatainak módosítására (pl. név, jogosultságok).
-- Az adminok létrehozhatnak jogosultsági szinteket, és hozzájuk rendelheti a jogosultsági köröket (pl. törlés, megtekintés, szerkesztés).
+- Az alkalmazás lehetővé teszi "Admin" felhasználók létrehozását. A moderátoroknak lehetőségük van felhasználók kitiltására, feltöltött fájlok, kommentek törlésére. Az adminoknak ezen felül lehetőségük van a felhasználók rangjának megváltoztatására, valamint kitiltásuk visszavonására is.
 #### Fájlfeltöltés
 - Fájlok feltöltésére a felhasználóknak van lehetőségük.
 - A feltöltés során lehetőség van mappákat létrehozni és ezekbe feltölteni.
-- A feltöltendő fájlhoz az adminoknak lehetősége van jogosultságok beállítására.
+- A feltöltött fájlokat az adminok/moderátorok törölhetik.
 #### Kommentek
 - A felhasználóknak lehetőségük van a számukra letölthető fájlokat kommentelni.
 - A fájlokhoz tartozó kommenteket lehetőség van elrejteni/megjeleníteni.
 #### Biztonság
-- A szabálysértő fájlokat, kommenteket lehet jelenteni.
+- A szabálysértő felhasználókat lehet jelenteni.
 - A jelentéshez szöveges magyarázatot is lehet fűzni.
-- A jelentett fájlokat, kommenteket az adminok, moderátorok megtekinthetik és szabálysértés esetén törölhetik, valamint kitilthatják a szabálysértő felhasználót.
+- A jelentett felhasználókat az adminok, moderátorok megtekinthetik és kitilthatják a szabálysértő felhasználót.
+- Szabálysértés hiányában a jelentés törlésre kerül.
 ## Nem funkcionális követelmények
 - Letisztult, felhasználóbarát kezelőfelület.
 - Felhasználók adatainak, feltöltött tartalmainak biztonságos tárolása.
 - Fájlfeltölés/letöltés gyors, hibamentes működése.
 ## Szerepkörök
-- Adminisztrátor: Az alkalmazás legmagasabb rangú karbantartója. Jogosult a felhasználók jogosultságainak módosítására, felhasználók kitiltására, fájlok módosítására, törlésére, moderátorjogok, egyéb jogkörök kiadására és elvételére.
-- Moderátor: Az adminisztrátor nevezi ki. Az adminisztrátoréhoz hasonló jogkörrel bír, moderátorjogokat és egyéb jogköröket viszont nem adhat ki és nem vehet el.
-- Felhasználó: Jogosult fájlok feltöltésére, letöltésére, szabálysértő elemek jelentésére.
-- Adott fájl(ok)hoz jogosultságot kapott felhasználó: A felhasználó az admin döntése alapján az alábbi hozzáféréseket kaphatja meg az adott fájl(ok)hoz: hozzáférés, átnevezés, tartalommódosítás/törlés, áthelyezés (más mappába).
-- Vendég: Csak publikus fájlok letöltésére van jogosultsága.
+- Adminisztrátor: Az alkalmazás legmagasabb rangú karbantartója. Jogosult a felhasználók rangjának módosítására, felhasználók kitiltására, fájlok törlésére.
+- Moderátor: Az adminisztrátor nevezi ki. Az adminisztrátoréhoz hasonló jogkörrel bír, viszont a felhasználók rangját nem módosíthatja.
+- Felhasználó: Jogosult fájlok feltöltésére, letöltésére, szabálysértő felhasználók jelentésére.
+- Vendég: Csak fájlok letöltésére van jogosultsága.
 
 # Backend
 
@@ -60,6 +59,10 @@ User:
 - GET user/logout
 - POST user/login
 - POST user/register
+- POST user/control
+- PATCH user/control/modify/:id
+- PATCH user/control/ban/:id
+- PATCH user/control/unban/:id
 
 File/Upload:
 - GET /listFiles/:path
@@ -68,7 +71,6 @@ File/Upload:
 - POST /listFiles/:path/upload
 - POST /listFiles/:path/createDir
 - DELETE /listFiles/:path
-- DELETE /showFile/:path
 
 Report:
 - GET /report/list
