@@ -18,7 +18,8 @@ import {CreateDirComponent} from '../create-dir/create-dir.component';
 export class UrlresolverComponent implements OnInit {
     private file: VirtualFile;
     private files: VirtualFile[];
-  private path: String;
+  private path: string;
+   private decodedPath: string;
   private comments: Comment[];
   private fileID: number;
 private fileItemView: FileItemViewComponent;
@@ -30,6 +31,7 @@ private createDirComponent: CreateDirComponent;
 
   ngOnInit() {
       this.path = window.location.pathname;
+      this.decodedPath = decodeURIComponent(this.path);
       if (this.path.startsWith('/showFile')) {
           this.path = this.path.replace('/showFile', '');
 

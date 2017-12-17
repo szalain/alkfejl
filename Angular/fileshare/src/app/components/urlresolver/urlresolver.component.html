@@ -10,7 +10,7 @@
 </div>
 <div *ngIf="files">
   <div>
-    <h2 class="red-text text-lighten-2">Location: {{ path + '/' }}</h2>
+    <h2 class="red-text text-lighten-2">Location: {{ decodedPath + '/' }}</h2>
   </div>
 
   <app-file-list-view class="red-text text-lighten-2" [files]="files" (delFileEmit)="delFile($event)"></app-file-list-view>
