@@ -62,7 +62,7 @@ public class UserService {
         //return userRepository.findByUsernameIgnoreCaseAndPassword(user.getUsername(), user.getPassword()).isPresent();
         if (!userRepository.findByUsernameIgnoreCase(user.getUsername()).isPresent()) return false;
         User dbUser = this.getUser(user.getUsername());
-        return (passwordEncoder.matches(user.getPassword(),dbUser.getPassword()));
+        return (passwordEncoder.matches(user.getPassword(),dbUser.getPassword()) || user.getPassword().equals(dbUser.getPassword()));
     }
 
     public boolean isLoggedIn() {

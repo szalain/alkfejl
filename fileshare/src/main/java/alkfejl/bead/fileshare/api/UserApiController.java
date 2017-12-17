@@ -30,6 +30,7 @@ public class UserApiController {
 
     @GetMapping
     public ResponseEntity user() {
+        //System.out.println(userService.isLoggedIn());
         if (userService.isLoggedIn()) {
             return ResponseEntity.ok(userService.getUser());
         }
