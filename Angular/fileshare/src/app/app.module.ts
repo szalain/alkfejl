@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { ReportComponent } from './components/report/report.component';
 import { IndexViewComponent } from './components/index-view/index-view.component';
@@ -20,6 +19,10 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { CreateDirComponent } from './components/create-dir/create-dir.component';
 import {FormsModule, NgForm} from "@angular/forms";
+import { UserControlComponent } from './components/user-control/user-control.component';
+import { UserControlItemViewComponent } from './components/user-control-item-view/user-control-item-view.component';
+import {MatSelectModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -38,13 +41,17 @@ import {FormsModule, NgForm} from "@angular/forms";
     CommentComponent,
     AddCommentComponent,
     UploadFileComponent,
-    CreateDirComponent
+    CreateDirComponent,
+    UserControlComponent,
+    UserControlItemViewComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

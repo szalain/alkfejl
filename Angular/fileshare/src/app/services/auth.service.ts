@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {this.syncLoginStatus(); }
 
   public login(username: string, password: string): Observable<User> {
     return this.http.post(AuthService.api + '/login', {
@@ -26,7 +26,8 @@ export class AuthService {
   }
 
   public setUser(user: User) {
-    AuthService.user = user;
+    // AuthService.user = user;
+    AuthService.user = new User(user.id, user.username, user.email, user.uploadCount, user.banned, user.role);
   }
 
   public getUser(): User {
@@ -37,14 +38,14 @@ export class AuthService {
     this.http.get(AuthService.api).subscribe((user: User) => {
       if (user) {
         this.setUser(user);
+        if (user.banned) this.logout();
       } else {
-          //AuthService.user = new User();
+          // AuthService.user = new User();
           /*console.log(this.hasRole(Role.GUEST));
           console.log(this.hasRole(Role.ADMIN));
           console.log(this.getUser());*/
       }
     });
-    //console.log(this.getUser());
   }
 
   public hasRole(role) {

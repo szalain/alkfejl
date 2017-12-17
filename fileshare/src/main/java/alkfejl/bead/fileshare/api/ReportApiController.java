@@ -27,7 +27,7 @@ public class ReportApiController {
     @PostMapping
     private ResponseEntity<Report> create(@RequestBody Report report) {
         //return ResponseEntity.ok(reportService.createReport(report));
-        System.out.println(report);
+        //System.out.println(report);
         if (userService.isFound(report.getReported())) {
             report.setReported(userService.getUser(report.getReported().getUsername()));
             report.setDate(new Date());

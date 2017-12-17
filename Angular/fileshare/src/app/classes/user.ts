@@ -11,15 +11,15 @@ export class User {
     username: string;
     email: string;
     uploadCount: number;
-    isBanned: boolean;
+    banned: boolean;
     role: string;
 
-    public constructor(id?: number, username?: string, email?: string, uploadCount?: number, isBanned?: boolean, role?: string) {
+    public constructor(id?: number, username?: string, email?: string, uploadCount?: number, banned?: boolean, role?: string) {
         this.id = id || null;
         this.username = username || null;
         this.email = email || null;
         this.uploadCount = uploadCount || null;
-        this.isBanned = isBanned || null;
+        this.banned = banned || null;
         this.role = role || Role.GUEST;
     }
     /*

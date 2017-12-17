@@ -7,5 +7,5 @@
     <a routerLink="/showFile{{file.fullPath}}">
         <strong>{{file.fileName}}</strong> - {{file.owner.email}}
     </a>
-    <a *ngIf="file.owner.id==this.authService.getUser().id || this.authService.getUser().role ==='ADMIN'"  (click)="clickButton($event)">[X]</a>
+    <a *ngIf="file.owner.id==this.authService.getUser().id || this.authService.hasRole('MOD') || this.authService.hasRole('ADMIN')"  (click)="clickButton($event)">[X]</a>
 </div>

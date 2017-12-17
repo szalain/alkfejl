@@ -27,6 +27,16 @@ public class UserService {
         return user;
     }
 
+    public void updateRole(User user, User.Role role) {
+        user.setRole(role);
+        userRepository.save(user);
+    }
+
+    public void updateStatus(User user, boolean status) {
+        user.setBanned(status);
+        userRepository.save(user);
+    }
+
     /*public Optional<User> findUser(String username, String email) {
         return userRepository.findByUsernameAndEmail(username, email);
     }*/
@@ -75,6 +85,6 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).get();
     }
 }

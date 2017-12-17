@@ -10,6 +10,7 @@ import {ReportListViewComponent} from '../components/report-list-view/report-lis
 import {FileListViewComponent} from '../components/file-list-view/file-list-view.component';
 import {FileItemViewComponent} from '../components/file-item-view/file-item-view.component';
 import {UrlresolverComponent} from '../components/urlresolver/urlresolver.component';
+import {UserControlComponent} from "../components/user-control/user-control.component";
 
 const routes: Routes = [
   //végpontok
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'showFile', children: [ { path: '**', component: UrlresolverComponent} ] },
     { path: 'listFiles', children: [ { path: '**', component: UrlresolverComponent} ] },
     {path: 'show', component: FileItemViewComponent},
+    { path: 'user/control', component: UserControlComponent }
 ];
 
 @NgModule({
