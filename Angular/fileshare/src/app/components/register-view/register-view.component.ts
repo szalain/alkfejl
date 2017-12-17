@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-register-view',
   templateUrl: './register-view.component.html',
   styleUrls: ['./register-view.component.css'],
-  providers: [UserService]
+  providers: [UserService, AuthService]
 })
 export class RegisterViewComponent implements OnInit {
 
@@ -18,7 +19,8 @@ export class RegisterViewComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

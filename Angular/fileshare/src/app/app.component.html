@@ -6,7 +6,8 @@
 
   <nav>
     <div class="nav-wrapper">
-      <a *ngIf="!this.authService.hasRole('GUEST')" class="center">User: {{this.authService.getUser().username}} </a>
+      <a *ngIf="!this.authService.hasRole('GUEST') && this.authService.getUser().uploadCount < 1" class="center">User: {{this.authService.getUser().username}} &nbsp; &nbsp; &nbsp; Feltöltések: 0</a>
+      <a *ngIf="!this.authService.hasRole('GUEST') && this.authService.getUser().uploadCount >= 1" class="center">User: {{this.authService.getUser().username}} &nbsp; &nbsp; &nbsp; Feltöltések: {{this.authService.getUser().uploadCount}}</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li *ngIf="!this.authService.hasRole('GUEST')"><a (click)="logout()" routerLink="/">Kijelentkezés</a></li>
         <li *ngIf="this.authService.hasRole('GUEST')"><a routerLink="/login">Bejelentkezés</a></li>

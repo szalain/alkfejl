@@ -1,6 +1,8 @@
+<div *ngIf="this.authService.hasRole('ADMIN') || this.authService.hasRole('MOD')">
 <h2 class="red-text text-lighten-2">Jelentések Listája</h2>
 <div class="collection">
   <app-report-item-view *ngFor="let report of reports"
             [report]="report">
   </app-report-item-view>
+</div>
 </div>

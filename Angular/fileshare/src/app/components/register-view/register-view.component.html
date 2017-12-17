@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="this.authService.hasRole('GUEST')">
   <form class="col s4 offset-s4" #regForm="ngForm" (keydown.enter)="tryRegister(username.value, email.value, password.value)">
     <h3 class="red-text text-lighten-2">Regisztráció</h3>
     <div class="row">

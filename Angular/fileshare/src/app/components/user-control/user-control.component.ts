@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {Role, User} from '../../classes/user';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-user-control',
   templateUrl: './user-control.component.html',
   styleUrls: ['./user-control.component.css'],
-  providers: [UserService]
+  providers: [UserService, AuthService]
 })
 
 export class UserControlComponent implements OnInit {
@@ -17,6 +18,7 @@ export class UserControlComponent implements OnInit {
 
     constructor(
         private userService: UserService,
+        private authService: AuthService,
         private router: Router
     ) { }
 
