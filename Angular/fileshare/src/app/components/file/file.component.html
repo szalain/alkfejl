@@ -1,11 +1,11 @@
 <div *ngIf="file.isDir" class="collection-item" style="border-bottom: 1px solid #e0e0e0 !important">
     <a routerLink="/listFiles{{file.fullPath}}" >
-        <strong>{{file.fileName}}</strong> - {{file.owner.email}}
+        <strong>{{file.fileName}}</strong> - {{file.owner.username}}
     </a>
 </div>
 <div *ngIf="!file.isDir" class="collection-item" style="border-bottom: 1px solid #e0e0e0 !important">
     <a routerLink="/showFile{{file.fullPath}}">
-        <strong>{{file.fileName}}</strong> - {{file.owner.email}}
+        <strong>{{file.fileName}}</strong> - {{file.owner.username}}
     </a>
     <a *ngIf="file.owner.id==this.authService.getUser().id || this.authService.hasRole('MOD') || this.authService.hasRole('ADMIN')"  (click)="clickButton($event)">[X]</a>
 </div>

@@ -15,6 +15,8 @@
       <div class="col s12">
         <input type="button" value="Küldés" class="btn"
                (click)="sendReport(username.value, description.value)">
+        <p *ngIf="error" [ngClass]="error ? 'error' : ''" >'{{username.value}}' felhasználó nem található!</p>
+        <p *ngIf="success" [ngClass]="success ? 'success' : ''" >'{{username.value}}' bejelentése megtörtént!</p>
       </div>
     </div>
   </form>

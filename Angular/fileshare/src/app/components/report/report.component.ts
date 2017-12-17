@@ -12,7 +12,8 @@ import {User} from '../../classes/user';
 })
 export class ReportComponent implements OnInit {
 
-    private error: boolean;
+    private error = false;
+    private success = false;
     private user: User;
     constructor(
         private authService: AuthService,
@@ -24,14 +25,18 @@ export class ReportComponent implements OnInit {
     }
 
     private sendReport(username: string, description: string): void {
+        this.error = false;
         this.user = new User(null, username, null, null, null);
         console.log(this.user);
-        this.reportService.createReport(this.user, description).subscribe()/*.subscribe(() => {
-            this.router.navigate(['/']);
+        this.reportService.createReport(this.user, description).subscribe(() => {
+            // this.router.navigate(['/']);
+            this.success = true;
         }, (err) => {
-            if (err.status === 401) {
+            if (err.status === 400) {
                 this.error = true;
+            } else if (err.status === 401) {
+                this.router.navigate(['/']);
             }
-        })*/;
+        });
     }
 }

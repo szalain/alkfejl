@@ -6,7 +6,7 @@
 
   <nav>
     <div class="nav-wrapper">
-      <a *ngIf="!this.authService.hasRole('GUEST')" routerLink="/user/{{this.authService.getUser().id}}" class="center">User: {{this.authService.getUser().username}} </a>
+      <a *ngIf="!this.authService.hasRole('GUEST')" class="center">User: {{this.authService.getUser().username}} </a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li *ngIf="!this.authService.hasRole('GUEST')"><a (click)="logout()" routerLink="/">Kijelentkezés</a></li>
         <li *ngIf="this.authService.hasRole('GUEST')"><a routerLink="/login">Bejelentkezés</a></li>
