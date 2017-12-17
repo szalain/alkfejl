@@ -27,7 +27,7 @@ export class AuthService {
 
   public setUser(user: User) {
     // AuthService.user = user;
-    AuthService.user = new User(user.id, user.username, user.email, user.uploadCount, user.isBanned, user.role);
+    AuthService.user = new User(user.id, user.username, user.email, user.uploadCount, user.banned, user.role);
   }
 
   public getUser(): User {
@@ -38,7 +38,7 @@ export class AuthService {
     this.http.get(AuthService.api).subscribe((user: User) => {
       if (user) {
         this.setUser(user);
-        if (user.isBanned) this.logout();
+        if (user.banned) this.logout();
       } else {
           // AuthService.user = new User();
           /*console.log(this.hasRole(Role.GUEST));

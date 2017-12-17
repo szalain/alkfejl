@@ -24,7 +24,6 @@ export class RegisterViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  // TODO: szerveroldalon és kliensoldalon helyesség vizsgálata: username:min. 3 karakter, és egyedi kell legyen, email: *@*.** formátum, jelszó: min. 3 karakter
   private tryRegister(username: string, email: string, password: string): void {
     this.userService.registerUser(username, email, password).subscribe((user) => {
         console.log(user);

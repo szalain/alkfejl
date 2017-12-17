@@ -1,23 +1,63 @@
 <div class="row">
-  <form class="col s12">
+  <form class="col s12" (keydown.enter)="findUser(username.value)">
     <h3 class="red-text text-lighten-2">Felhasználókezelés</h3>
     <div class="row">
       <div class="col s12">
         Keresendő felhasználó:
         <div class="input-field inline">
-          <input id="email" type="email" class="validate">
-          <label for="email" data-error="wrong" data-success="right">Felhasználónév</label>
+          <input #username id="username" type="text" placeholder="Felhasználónév">
         </div>
       </div>
       <div class="col s12">
-        <input type="button" value="Keresés" class="btn">
+        <input type="button" value="Keresés" class="btn" (click)="findUser(username.value)">
       </div>
 
-      <div class="col s12">
-      <app-user-control-item-view>
-
-      </app-user-control-item-view>
-      </div>
     </div>
   </form>
 </div>
+
+<div class="col s12">
+  <p *ngIf="error" [ngClass]="error ? 'error' : ''" >'{{ username.value }}' felhasználó nem található!</p>
+
+  <table *ngIf="this.user.username != null">
+    <tbody>
+    <tr>
+      <td><strong>Felhasználónév:  </strong>{{ this.user.username }}</td>
+    </tr>
+    <tr>
+      <td><strong>Feltöltések száma: </strong>{{ this.user.uploadCount }}</td>
+    </tr>
+    <!--<tr>
+      <td><strong>Rang: </strong>{{ this.user.role }}</td>
+    </tr>-->
+    <tr><td>
+      <strong>Rang: </strong>
+    </td></tr>
+    <tr><td>
+      <mat-form-field>
+        <mat-select [(value)]="this.user.role">
+          <mat-option value="USER">Felhasználó</mat-option>
+          <mat-option value="MOD">Moderátor</mat-option>
+          <mat-option value="ADMIN">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    </tr>
+    <tr *ngIf="this.user.banned">
+      <td><strong>Tiltva: </strong>Igen </td>
+    </tr>
+    <tr *ngIf="!this.user.banned">
+      <td><strong>Tiltva: </strong>Nem </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="Rang módosítása" class="btn" (click)="modifyUser(this.user.role, this.user.id)">
+        <input *ngIf="!this.user.banned" type="button" value="Felhasználó tiltása" class="btn" (click)="banUser(this.user.id)">
+        <input *ngIf="this.user.banned" type="button" value="Tiltás feloldása" class="btn" (click)="unbanUser(this.user.id)">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="success" [ngClass]="success ? 'success' : ''" >'{{this.user.username}}' módosítása sikeres!</p>
+
+</div>
+
