@@ -2,6 +2,7 @@
   <app-file-item-view class="red-text text-lighten-2" [file]="file">File {{ file.fullPath }}</app-file-item-view>
 
     <app-add-comment></app-add-comment>
+
     <div *ngIf="comments">
         <app-comment *ngFor="let comment of comments"
                      [comment]="comment">

@@ -1,4 +1,5 @@
-<h3>File: {{file.fileName}}</h3>
-Path: {{file.path}}<br>
-Owner: {{file.owner.email}}<br>
-{{file.isDir}}
+<h3>File: {{ file.fileName }}</h3>
+Path: {{ file.path }}<br>
+Owner: {{ file.owner.email }}<br>
+{{ file.isDir }}
+<input type="button" (click)="download()" value="Letöltés" class="btn" style="margin-top: 20px;">

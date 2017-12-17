@@ -39,7 +39,7 @@ public class CommentApiController {
         return "listFiles";
     }*/
 
-    //@Role({ADMIN, MOD, USER})
+    @Role({ADMIN, MOD, USER})
     @RequestMapping(value="/api/showFile/**/comment", method = RequestMethod.POST)
     public ResponseEntity report(HttpServletRequest request, @RequestParam("comment") String commentText) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -57,7 +57,7 @@ public class CommentApiController {
         }
     }
 
-    //@Role({ADMIN, MOD, USER})
+    @Role({ADMIN, MOD, USER})
     @GetMapping("/api/showFile/**/comments")
     public ResponseEntity listCommentsByFile(HttpServletRequest request) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -72,6 +72,7 @@ public class CommentApiController {
         return ResponseEntity.ok(c);
     }
 
+    @Role({USER, MOD, ADMIN})
     @RequestMapping(value = "/api/showFile/**/comments/{id}", method =RequestMethod.DELETE)
     public ResponseEntity deleteCommentById(HttpServletRequest request, @PathVariable Long id) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -90,25 +91,5 @@ public class CommentApiController {
 
         return ResponseEntity.status(HttpStatus.OK).body("Comment deleted!");
     }
-/*
-    @Role({ADMIN, MOD})
-    @GetMapping("/reportlist/ban")
-    public String banUser(@RequestParam(value = "id") Long id) {
-        //model.addAttribute("name", name);
-        User u = userService.getUserById(id);
-        u.setBanned(true);
-        userService.register(u);
-        System.out.println("User bannolva: " + u.getUsername());
-        return "redirect:/reportlist";
-    }
-
-    @Role({ADMIN, MOD})
-    @GetMapping("/reportlist/delete")
-    public String deleteReport(@RequestParam(value = "id") Long id) {
-        Report r = reportService.getReport(id);
-        reportService.deleteReport(r);
-        return "redirect:/reportlist";
-    }
-    */
 
 }

@@ -82,11 +82,14 @@ public class UploadService {
             String newName = fileRepository.findByFullPath(path+file.getOriginalFilename()).get().getId().toString();
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
+
+           virtualFile.getOwner().setUploadCount(virtualFile.getOwner().getUploadCount()+1);
             return virtualFile;
     }
 
     public void store(String location, String name) throws Exception {
             User user = userService.getUser();
+            System.out.println(userService.isValid(user));
             if (user==null || !userService.isValid(user) || userService.isBanned(user)) {
                 throw new UserNotValidException();
             }
@@ -184,8 +187,6 @@ public class UploadService {
             throw new FileNotFoundException("Could not delete, file doesn't exist");
         }
         if(user.getRole().equals(User.Role.ADMIN) || user.getRole().equals(User.Role.MOD) || user.getId()==virtualFile.getOwner().getId()) {
-
-
             if (id != null) {
                 String filename = storageService.findID(restOfTheUrl);
                 Path file = rootLocation.resolve(filename);
@@ -195,7 +196,7 @@ public class UploadService {
                 }
                 commentRepository.deleteAllByCommentedFileId(id);
                 fileRepository.delete(id);
-
+                virtualFile.getOwner().setUploadCount(virtualFile.getOwner().getUploadCount()-1);
             }
         } else {
             throw new UserNotValidException("File could not be deleted: the user is the owner or ADMIN!")

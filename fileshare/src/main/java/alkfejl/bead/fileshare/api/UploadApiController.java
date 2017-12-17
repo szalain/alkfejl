@@ -6,6 +6,7 @@ import alkfejl.bead.fileshare.model.File;
 import alkfejl.bead.fileshare.service.CommentService;
 import alkfejl.bead.fileshare.service.UploadService;
 import alkfejl.bead.fileshare.service.UserService;
+import alkfejl.bead.fileshare.service.annotations.Role;
 import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
+
+import static alkfejl.bead.fileshare.model.User.Role.ADMIN;
+import static alkfejl.bead.fileshare.model.User.Role.MOD;
+import static alkfejl.bead.fileshare.model.User.Role.USER;
 
 @RestController
 @RequestMapping("/api")
@@ -73,6 +78,8 @@ public class UploadApiController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @Role({USER, MOD, ADMIN})
     @CrossOrigin
     @RequestMapping(value="listFiles/**/upload",method = RequestMethod.POST)
     public ResponseEntity handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
@@ -103,6 +110,7 @@ public class UploadApiController {
         }
     }
 
+    @Role({USER, MOD, ADMIN})
     @RequestMapping(value="listFiles/**/createDir",method = RequestMethod.POST)
     public ResponseEntity handleFileUpload(HttpServletRequest request,@RequestParam("name") String name) {
         String restOfTheUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -145,6 +153,7 @@ public class UploadApiController {
                 .body(file);
     }
 
+    @Role({USER, MOD, ADMIN})
     @RequestMapping(value={"/listFiles/**"}, method = RequestMethod.DELETE)
     public ResponseEntity deleteFile(HttpServletRequest request) {
         boolean success=false;

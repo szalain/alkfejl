@@ -33,7 +33,6 @@ private path: string;
     public delComment(id: number): Subscription {
         this.path = window.location.pathname;
         this.path = this.path.replace('/showFile', '');
-        console.log(this.path);
         const subscription = this.http.delete('http://localhost:4200/api/showFile' + this.path + '/comments/' + id, { responseType: 'text' }).subscribe(result => console.log(result));
         setTimeout((router) => {
             this.r.navigateByUrl('/showFile' + this.path);

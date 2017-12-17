@@ -65,7 +65,7 @@ public class CommentService {
         }
         if(!commentRepository.findCommentById(id).isPresent())
             throw new NoSuchElementException("There is no comment with that ID!");
-        if(commentRepository.findById(id).getUser().getId()==user.getId()) {
+        if(user.getRole().equals(User.Role.ADMIN) || user.getRole().equals(User.Role.MOD) || commentRepository.findById(id).getUser().getId()==user.getId()) {
             commentRepository.deleteCommentById(id);
         } else {
            throw new UserNotValidException("Comment is not created by current user!");

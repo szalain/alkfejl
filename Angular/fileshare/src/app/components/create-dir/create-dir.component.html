@@ -1,8 +1,10 @@
 <div class="row" *ngIf="!this.authService.hasRole('GUEST')">
+
+  <h4 style="margin-top: 30px;">Mappa létrehozása:</h4>
   <form class="col s4 offset-s4">
     <div class="row">
       <div class="input-field col s12">
-        <input #name type="text" placeholder="Name">
+        <input #name type="text" placeholder="Mappa neve">
       </div>
     </div>
     <div class="row">

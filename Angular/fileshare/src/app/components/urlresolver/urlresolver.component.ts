@@ -34,6 +34,7 @@ private createDirComponent: CreateDirComponent;
       this.decodedPath = decodeURIComponent(this.path);
       if (this.path.startsWith('/showFile')) {
           this.path = this.path.replace('/showFile', '');
+          this.decodedPath = this.decodedPath.replace('/showFile', '');
 
           this.fileService.getFile(this.path).subscribe((file) => {
               this.file = file as VirtualFile;
@@ -46,6 +47,7 @@ private createDirComponent: CreateDirComponent;
 
       if (this.path.startsWith('/listFiles')) {
           this.path = this.path.replace('/listFiles', '');
+          this.decodedPath = this.decodedPath.replace('/listFiles', '');
           this.fileService.getFiles(this.path + '/').subscribe((files) => {
               this.files = files as VirtualFile[];
               this.files.forEach(f => {
@@ -60,10 +62,9 @@ private createDirComponent: CreateDirComponent;
 
   }
     public delFile(fullPath: string): void {
-      console.log(this.files);
         this.fileService.delFile(fullPath);
         this.files.splice(this.files.indexOf(this.files.find(x => x.fullPath === fullPath)), 1);
-        console.log(this.files);
+
     }
 
     public uploadFile(path: string, file: File): void {
