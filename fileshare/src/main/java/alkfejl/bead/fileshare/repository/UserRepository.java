@@ -4,6 +4,7 @@ import alkfejl.bead.fileshare.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Repository
@@ -16,6 +17,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByUsernameIgnoreCaseAndPassword(String username, String password);
     Optional<User> findByUsernameAndEmail(String username, String email);
     Optional<User> findByUsernameAndBannedTrue(String username);
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
 }
