@@ -41,7 +41,7 @@ public class UserController {
         return "index";
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public String login(@ModelAttribute User user, Model model) {
         if (userService.isValid(user) && !userService.isBanned(user)) {
             try {
@@ -53,7 +53,7 @@ public class UserController {
         }
         model.addAttribute("loginFailed", true);
         return "login";
-    }
+    }*/
 
     @GetMapping("/register")
     public String register(Model model) {

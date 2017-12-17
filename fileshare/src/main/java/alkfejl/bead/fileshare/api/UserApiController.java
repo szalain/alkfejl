@@ -6,6 +6,7 @@ import alkfejl.bead.fileshare.service.annotations.Role;
 import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
@@ -18,6 +19,9 @@ public class UserApiController {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserApiController(UserService userService) {
@@ -36,9 +40,14 @@ public class UserApiController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
+            //User dbUser = userService.getUser(user.getUsername());
+            //System.out.println(passwordEncoder.matches(user.getPassword(),dbUser.getPassword()));
+            //if (!passwordEncoder.matches(user.getPassword(),dbUser.getPassword())) return ResponseEntity.badRequest().build();
             if (userService.isBanned(user)) return ResponseEntity.status(403).build();
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().build();
         }
     }
@@ -54,6 +63,7 @@ public class UserApiController {
     public ResponseEntity<User> register(@RequestBody User user) {
         if(userService.isDataDuplicated(user)) return ResponseEntity.badRequest().build();
         if(!userService.isDataValid(user)) return ResponseEntity.badRequest().build();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ResponseEntity.ok(userService.register(user));
     }
 

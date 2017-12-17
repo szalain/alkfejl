@@ -5,6 +5,7 @@ import alkfejl.bead.fileshare.repository.UserRepository;
 import alkfejl.bead.fileshare.service.exceptions.UserNotValidException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -18,6 +19,9 @@ import static alkfejl.bead.fileshare.model.User.Role.USER;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private User user;
 
@@ -55,7 +59,10 @@ public class UserService {
     }
 
     public boolean isValid(User user) {
-        return userRepository.findByUsernameIgnoreCaseAndPassword(user.getUsername(), user.getPassword()).isPresent();
+        //return userRepository.findByUsernameIgnoreCaseAndPassword(user.getUsername(), user.getPassword()).isPresent();
+        if (!userRepository.findByUsernameIgnoreCase(user.getUsername()).isPresent()) return false;
+        User dbUser = this.getUser(user.getUsername());
+        return (passwordEncoder.matches(user.getPassword(),dbUser.getPassword()));
     }
 
     public boolean isLoggedIn() {

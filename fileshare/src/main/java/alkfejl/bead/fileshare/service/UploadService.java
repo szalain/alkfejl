@@ -183,7 +183,7 @@ public class UploadService {
         } else {
             throw new FileNotFoundException("Could not delete, file doesn't exist");
         }
-        if(User.Role.ADMIN.equals(user.getRole()) || user.getId()==virtualFile.getOwner().getId()) {
+        if(user.getRole().equals(User.Role.ADMIN) || user.getRole().equals(User.Role.MOD) || user.getId()==virtualFile.getOwner().getId()) {
 
 
             if (id != null) {
