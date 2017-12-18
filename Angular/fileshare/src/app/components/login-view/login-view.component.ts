@@ -19,8 +19,7 @@ export class LoginViewComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   private tryLogin(username: string, password: string): void {
     this.authService.login(username, password).subscribe((user) => {
