@@ -15,13 +15,6 @@ export class IndexViewComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit() {
-      if (this.authService.hasRole('GUEST'))
-      {
-          this.router.navigate(['/login']);
-      } else {
-          this.router.navigate(['listFiles']);
-      }
-  }
+  ngOnInit() {}
 
 }

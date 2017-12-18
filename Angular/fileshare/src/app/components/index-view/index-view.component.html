@@ -1,1 +1,7 @@
-<h1>INDEX</h1>
+<h2>Üdvözlünk a fájlfeltöltőn!</h2>
+<p *ngIf="authService.hasRole('GUEST')">Az alkalmazás használatához bejelentkezés szükséges. Ha még nem regisztráltál, akkor azt is meg tudod tenni.<br>
+    A fájlok listázása elérhető vendégeknek is, azonban a kommenteket így sajnos nem lehet látni.</p>
+<p *ngIf="!authService.hasRole('GUEST')">A fájlok fül alatt tudsz mappákat létrehozni és fájlokat feltölteni! <br>
+    A fájlok alatt kifejtheted a véleményed kommentek formájában. <br>
+    Ha egy felhasználót jelenteni szeretnél, mert úgy gondolod, hogy szabálytalanságot követett el,<br> akkor azt a Felhasználó jelentése menüpont alatt teheted meg.
+</p>

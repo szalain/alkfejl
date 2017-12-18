@@ -8,12 +8,13 @@ import {Comment} from '../../classes/comment';
 import {AddCommentComponent} from '../add-comment/add-comment.component';
 import {UploadFileComponent} from '../upload-file/upload-file.component';
 import {CreateDirComponent} from '../create-dir/create-dir.component';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-urlresolver',
   templateUrl: './urlresolver.component.html',
   styleUrls: ['./urlresolver.component.css'],
-    providers: [FileService, CommentService]
+    providers: [FileService, CommentService, AuthService]
 })
 export class UrlresolverComponent implements OnInit {
     private file: VirtualFile;
@@ -28,7 +29,7 @@ private comment: Comment;
 private uploadFileComponent: UploadFileComponent;
 private createDirComponent: CreateDirComponent;
 public backPath: string;
-  constructor(private fileService: FileService, private commentService: CommentService) {}
+  constructor(private fileService: FileService, private commentService: CommentService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
       this.path = window.location.pathname;
