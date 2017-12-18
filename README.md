@@ -104,3 +104,6 @@ A projekt forráskódja az Angular/fileshare/src/app könyvtárban található, 
   - components: A projekt végpontjainak megjelenítéséért felelő, a servicek használatával a backenddel kommunikáló, kontrollerként működő fájlokat tartalmazza, alkönyvtárai a végpontok, valamint a hozzájuk fűződő adatbázisbeli táblák, és azok listáinak komponensei.
   - services: A backenddel való kommunikációt valósítja meg, HTTP Requesteket tartalmazó TypeScript fájlok segítségével.
   - routing: A Router modul route-jait definiálva összeköti a projekt végpontjait a komponensekkel.
+
+## Felhasználói szerepkörök funkciói
+![use-case diagram](docs/images/usecase.png)
