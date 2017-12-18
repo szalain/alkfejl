@@ -105,5 +105,45 @@ A projekt forráskódja az Angular/fileshare/src/app könyvtárban található, 
   - services: A backenddel való kommunikációt valósítja meg, HTTP Requesteket tartalmazó TypeScript fájlok segítségével.
   - routing: A Router modul route-jait definiálva összeköti a projekt végpontjait a komponensekkel.
 
+## Kliensoldali szolgáltatások
+- Be- és kijelentkezés
+- Elérhető fájlok listázása
+- Adott fájlhoz tartozó aloldal elérése
+- Fájl letöltése
+- (FELHASZNÁLÓ) Az aloldalon való kommentelés lehetősége
+- (FELHASZNÁLÓ) Saját komment törlése
+- (FELHASZNÁLÓ) Fájlfeltöltés
+- (FELHASZNÁLÓ) Felhasználó jelentése
+- (MOD/ADMIN) Jelentéslista elérése
+- (MOD/ADMIN) Jelentett felhasználó kitiltása
+- (MOD/ADMIN) Jelentés törlése
+- (ADMIN) Felhasználó kiltiltásának visszavonása
+- (ADMIN) Felhasználó rangjának módosítása
+
 ## Felhasználói szerepkörök funkciói
 ![use-case diagram](docs/images/usecase.png)
+
+## Tesztelés
+A projekt frontendjének 3 végpontja került tesztelésre: /login, /register, /report
+- Login:
+  - /login végpont elérhetősége
+  - Bejelentkezés megkísérlése hibás adatokkal
+  - Bejelentkezés megkísérlése kitiltott felhasználóval
+  - Bejelentkezés helyes adatokkal
+  - Bejelentkezés után a /login végpont üres oldalt ad vissza
+  - Bejelentkezés után a /register végpont üres oldalt ad vissza
+- Register:
+  - /register végpont elérhetősége
+  - Regisztráció megkísérlése rövid felhasználónévvel
+  - Regisztráció megkísérlése rövid jelszóval
+  - Regisztráció megkísérlése helytelen e-maillel 1. teszt
+  - Regisztráció megkísérlése helytelen e-maillel 2. teszt
+  - Regisztráció megkísérlése helytelen e-maillel 3. teszt
+  - Regisztráció megkísérlése helytelen felhasználónévvel (speciális karakter)
+  - Regisztráció megkísérlése helytelen jelszóval (speciális karakter)
+  - Regisztráció helyes adatokkal
+  - Regisztráció megkísérlése már használatban lévő felhasználónévvel
+  - Regisztráció megkísérlése már használatban lévő e-maillel
+- Report:
+  - Bejelentés megkísérlése nem létező felhasználónévvel
+  - Bejelentés helyes adatokkal
