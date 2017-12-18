@@ -29,8 +29,10 @@ export class ReportComponent implements OnInit {
         this.user = new User(null, username, null, null, null);
         console.log(this.user);
         this.reportService.createReport(this.user, description).subscribe(() => {
-            // this.router.navigate(['/']);
             this.success = true;
+            setTimeout((router) => {
+                this.router.navigate(['/']);
+            }, 1500);
         }, (err) => {
             if (err.status === 400) {
                 this.error = true;

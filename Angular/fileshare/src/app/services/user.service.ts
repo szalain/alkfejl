@@ -32,7 +32,6 @@ export class UserService {
     return this.http.patch(UserService.api + '/control/unban/' + id, {}) as Observable<User>;
   }
 
-  // TODO: Backendben még hiányzik ez a végpont
   public getUser(id: number): Observable<User> {
     return this.http.get(UserService.api + '/' + id) as Observable<User>;
   }
