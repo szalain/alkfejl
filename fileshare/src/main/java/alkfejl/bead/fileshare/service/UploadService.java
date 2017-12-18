@@ -83,7 +83,7 @@ public class UploadService {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             Files.move(this.rootLocation.resolve(file.getOriginalFilename()), this.rootLocation.resolve(file.getOriginalFilename()).resolveSibling(newName));
 
-           virtualFile.getOwner().setUploadCount(virtualFile.getOwner().getUploadCount()+1);
+            userService.updateUploadCount(virtualFile.getOwner(), 1);
             return virtualFile;
     }
 
@@ -196,7 +196,7 @@ public class UploadService {
                 }
                 commentRepository.deleteAllByCommentedFileId(id);
                 fileRepository.delete(id);
-                virtualFile.getOwner().setUploadCount(virtualFile.getOwner().getUploadCount()-1);
+                userService.updateUploadCount(virtualFile.getOwner(), -1);
             }
         } else {
             throw new UserNotValidException("File could not be deleted: the user is the owner or ADMIN!")

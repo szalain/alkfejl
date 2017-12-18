@@ -1,4 +1,4 @@
-<div class="row" *ngIf="this.authService.getUser()">
+<div class="row" *ngIf="!this.authService.hasRole('GUEST')">
   <h4 style="margin-top: 30px;">Komment küldése:</h4>
   <form class="col s4 offset-s4">
     <div class="row">

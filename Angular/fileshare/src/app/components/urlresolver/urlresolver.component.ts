@@ -27,6 +27,7 @@ private addCommentComponent: AddCommentComponent;
 private comment: Comment;
 private uploadFileComponent: UploadFileComponent;
 private createDirComponent: CreateDirComponent;
+public backPath: string;
   constructor(private fileService: FileService, private commentService: CommentService) {}
 
   ngOnInit() {
@@ -39,10 +40,12 @@ private createDirComponent: CreateDirComponent;
           this.fileService.getFile(this.path).subscribe((file) => {
               this.file = file as VirtualFile;
               this.fileID = file.id;
+              this.backPath = '/listFiles' + file.path;
           });
           this.commentService.getComments(this.path).subscribe((comments) => {
               this.comments = comments as Comment[];
           });
+
       }
 
       if (this.path.startsWith('/listFiles')) {
@@ -58,6 +61,8 @@ private createDirComponent: CreateDirComponent;
                   }
               });
           });
+          let paths = this.decodedPath.split('/');
+          this.backPath = '/listFiles' + this.decodedPath.replace(paths[paths.length-1], '');
       }
 
   }
@@ -71,7 +76,8 @@ private createDirComponent: CreateDirComponent;
       this.fileService.uploadFile(path, file);
     }
 
-    createDir(path: string, name: string) {
+    public createDir(path: string, name: string) {
         this.fileService.createDir(path, name);
     }
+
 }

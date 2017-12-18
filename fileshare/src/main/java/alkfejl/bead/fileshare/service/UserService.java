@@ -41,6 +41,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void updateUploadCount(User user, int num) {
+        user.setUploadCount(user.getUploadCount()+num);
+        userRepository.save(user);
+    }
+
     /*public Optional<User> findUser(String username, String email) {
         return userRepository.findByUsernameAndEmail(username, email);
     }*/
